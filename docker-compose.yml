@@ -1,0 +1,10 @@
+services:
+  site:
+    build: .
+    image: hugo-arch
+    volumes:
+      - .:/site
+    working_dir: /site
+    ports:
+      - "1313:1313"
+    tty: true
