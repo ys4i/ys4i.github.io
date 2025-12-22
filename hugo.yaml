@@ -1,0 +1,47 @@
+baseurl: https://ys4i.github.io/
+languageCode: ja-jp
+title: ys4i portfolio
+theme: hugo-theme-stack
+
+DefaultContentLanguage: ja
+hasCJKLanguage: true
+
+pagination:
+  pagerSize: 12
+
+permalinks:
+  page: /:slug/
+
+params:
+  mainSections:
+    - projects
+
+  sidebar:
+    subtitle: IoT hardware and software engineer
+    avatar:
+      enabled: false
+
+  article:
+    toc: true
+    readingTime: false
+
+  comments:
+    enabled: false
+
+  widgets:
+    homepage: []
+    page:
+      - type: toc
+
+menu:
+  social:
+    - identifier: github
+      name: GitHub
+      url: https://github.com/ys4i
+      params:
+        icon: brand-github
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true

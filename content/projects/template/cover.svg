@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="template cover placeholder">
+  <rect width="1200" height="900" fill="#f2f2f2"/>
+  <rect x="90" y="90" width="1020" height="720" fill="#ffffff" stroke="#111111" stroke-width="6"/>
+  <text x="600" y="470" font-family="sans-serif" font-size="48" text-anchor="middle" fill="#111111">template</text>
+  <text x="600" y="540" font-family="sans-serif" font-size="24" text-anchor="middle" fill="#555555">placeholder</text>
+</svg>

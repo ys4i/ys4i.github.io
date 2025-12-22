@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>TODO on ys4i portfolio</title>
+        <link>http://localhost:1313/tags/todo/</link>
+        <description>Recent content in TODO on ys4i portfolio</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language><atom:link href="http://localhost:1313/tags/todo/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>てんぷれーと</title>
+        <link>http://localhost:1313/projects/template/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/projects/template/</guid>
+        <description>&lt;img src="http://localhost:1313/projects/template/cover.svg" alt="Featured image of post てんぷれーと" /&gt;&lt;h2 id=&#34;概要&#34;&gt;概要
+&lt;/h2&gt;&lt;p&gt;ここにかく。&lt;/p&gt;
+&lt;h2 id=&#34;自分の担当&#34;&gt;自分の担当
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;ここにかく&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;技術スタック&#34;&gt;技術スタック
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;ここにかく&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;リンク&#34;&gt;リンク
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;GitHub: &lt;a class=&#34;link&#34; href=&#34;https://github.com/yourname/robotics-kit&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/yourname/robotics-kit&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
