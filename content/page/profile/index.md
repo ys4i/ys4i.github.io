@@ -1,5 +1,5 @@
 ---
-title: About
+title: Profile
 description: プロフィールとスキルセット
 menu:
   main:
@@ -51,11 +51,7 @@ menu:
 1. **(ODM供給)心拍可視化デバイス「e-lamp」**
    - センサーモジュールからファームウェアまでを一貫開発。回路設計、ファームウェアを担当し、展示会でのデモ運用、市場投入まで実施。
    - [紹介記事](https://prtimes.jp/main/html/rd/p/000000013.000109230.html)
-   - <div class="media media--video">
-       <div class="embed-16x9">
-         <iframe src="https://www.youtube.com/embed/u3EIpsf70VQ" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
-       </div>
-     </div>
+   - {{< youtube u3EIpsf70VQ >}}
 
 2. **ワイヤレススピーカー「YSP-01」**
    - 音楽を聴くだけでなく、見て楽しめる、魅せるスピーカー
