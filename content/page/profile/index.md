@@ -55,9 +55,7 @@ menu:
 
 2. **ワイヤレススピーカー「YSP-01」**
    - 音楽を聴くだけでなく、見て楽しめる、魅せるスピーカー
-   - <div class="media media--image">
-       <img src="/assets/images/about/YSP-01.webp" alt="ワイヤレススピーカー「YSP-01」" loading="lazy">
-     </div>
+   - {{< figure src="/assets/images/about/YSP-01.webp" alt="ワイヤレススピーカー「YSP-01」" >}}
    - [Booth紹介ページ](https://booth.pm/ja/items/4794576)
 
 3. **てんぷれーと**
