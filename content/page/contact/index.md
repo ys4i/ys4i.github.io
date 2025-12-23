@@ -8,6 +8,10 @@ menu:
       icon: messages
 ---
 
+# リンク集
+- twitter(サークル公式アカウント): https://twitter.com/souz_create
+- Booth: https://yasushitech.booth.pm/
+
 - Email: yasushitech@gmail.com
 - GitHub: https://github.com/ys4i
-- Twitter: https://twitter.com/yasushi_tech
+- twitter(個人アカウント): https://twitter.com/yasushi_tech
