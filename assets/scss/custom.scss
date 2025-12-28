@@ -43,3 +43,15 @@
   height: 100%;
   border: 0;
 }
+
+// project用のタイル風css
+.template-projects-list {
+  .article-list--tile {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .article-list--tile article {
+    width: 100%;
+  }
+}
