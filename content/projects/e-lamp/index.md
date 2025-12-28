@@ -3,6 +3,7 @@ title: e-lamp
 description: 心拍を可視化するインタラクティブデバイス
 image: cover.webp
 categories:
+  - ODM
   - Hardware
   - Firmware
 tags:
