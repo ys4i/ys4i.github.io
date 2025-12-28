@@ -54,4 +54,8 @@
   .article-list--tile article {
     width: 100%;
   }
+  .article-list--tile article.has-image .article-details {
+    // タイル背景の透明度調整用。JSで背景が付与されるためCSS上書きは不要。詳細は assets/ts/readme.md を参照。
+    /* background: rgba(255, 255, 255, 0.15) !important; */
+  }
 }
