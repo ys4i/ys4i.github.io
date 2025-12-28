@@ -12,7 +12,7 @@ tags:
 ---
 
 ## 概要
-<video controls playsinline preload="metadata" width="100%" muted loop>
+<video controls playsinline preload="metadata" width="100%" muted loop autoplay>
   <source src="/assets/videos/analightic.mp4" type="video/mp4">
   お使いのブラウザは動画に対応していません。
 </video>
