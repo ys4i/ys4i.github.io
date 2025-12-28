@@ -1,0 +1,28 @@
+{{ define "body-class" }}template-archives{{ end }}
+{{ define "main" }}
+    <header>
+        {{- $taxonomy := $.Site.GetPage "taxonomyTerm" "categories" -}}
+        {{- $terms := $taxonomy.Pages -}}
+        {{ if $terms }}
+        <h2 class="section-title">{{ T "widget.categoriesCloud.title" }}</h2>
+        <div class="subsection-list">
+            <div class="article-list--tile">
+                {{ range $terms }}
+                    {{ partial "article-list/tile" (dict "context" . "size" "250x150" "Type" "taxonomy") }}
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+    </header>
+
+    {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+    {{ $filtered := where $pages "Params.hidden" "!=" true }}
+
+    <div class="article-list--compact">
+        {{ range $filtered.ByDate.Reverse }}
+            {{ partial "article-list/compact" . }}
+        {{ end }}
+    </div>
+
+    {{ partialCached "footer/footer" . }}
+{{ end }}

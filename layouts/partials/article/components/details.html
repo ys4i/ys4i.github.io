@@ -1,0 +1,48 @@
+<div class="article-details">
+    {{ if .Params.categories }}
+    <header class="article-category">
+        {{ range (.GetTerms "categories") }}
+            <a href="{{ .RelPermalink }}" {{ with .Params.style }}style="background-color: {{ .background }}; color: {{ .color }};"{{ end }}>
+                {{ .LinkTitle }}
+            </a>
+        {{ end }}
+    </header>
+    {{ end }}
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="{{ .RelPermalink }}">
+                {{- .Title -}}
+            </a>
+        </h2>
+
+        {{ with .Params.description }}
+        <h3 class="article-subtitle">
+            {{ . }}
+        </h3>
+        {{ end }}
+    </div>
+
+    {{ $showReadingTime := .Params.readingTime | default (.Site.Params.article.readingTime) }}
+    {{ if $showReadingTime }}
+    <footer class="article-time">
+        <div>
+            {{ partial "helper/icon" "clock" }}
+            <time class="article-time--reading">
+                {{ T "article.readingTime" .ReadingTime }}
+            </time>
+        </div>
+    </footer>
+    {{ end }}
+
+    {{ if .IsTranslated }}
+        <footer class="article-translations">
+            {{ partial "helper/icon" "language" }}
+            <div>
+                {{ range .Translations }}
+                    <a href="{{ .Permalink }}" class="link">{{ .Language.LanguageName }}</a>
+                {{ end }}
+            </div>
+        </footer>
+    {{ end }}
+</div>
