@@ -59,3 +59,15 @@
     /* background: rgba(255, 255, 255, 0.15) !important; */
   }
 }
+
+// top page tiles
+.template-home-tiles {
+  .article-list--tile {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .article-list--tile article {
+    width: 100%;
+  }
+}
