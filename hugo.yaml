@@ -40,6 +40,34 @@ menu:
       url: https://github.com/ys4i
       params:
         icon: brand-github
+    - identifier: twitter
+      name: Twitter
+      url: https://twitter.com/yasushi_tech
+      weight: 20
+      params:
+        icon: brand-twitter
+        newTab: true
+    - identifier: souz
+      name: Souz Create
+      url: https://twitter.com/souz_create
+      weight: 25
+      params:
+        icon: brand-souz
+        newTab: true
+    # - identifier: instagram
+    #   name: Instagram
+    #   url: https://instagram.com/
+    #   weight: 30
+    #   params:
+    #     icon: brand-instagram
+    #     newTab: true
+    - identifier: booth
+      name: BOOTH
+      url: https://yasushitech.booth.pm/
+      weight: 40
+      params:
+        icon: brand-booth
+        newTab: true
 
 markup:
   goldmark:
