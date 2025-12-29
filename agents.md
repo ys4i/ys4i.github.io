@@ -55,6 +55,30 @@
   - GitHub リポジトリ／発表スライド／記事へのリンク
   - 写真 1〜数枚
 
+## 整列表記（Markdown 表を使わない）
+- ラベルと値を揃えたい場合は `<dl class="profile-grid">` を使う。
+- `dt` にラベル、`dd` に値を入れて 1 ペア 1 行にする。
+- URL などは `<a class="link">` で包み、Hugo のリンクホバーと同じ挙動に揃える。
+  - 外部リンクは `target="_blank" rel="noopener"` を付ける。
+- スタイルは `assets/scss/custom.scss` に以下を追加（既にあれば流用）。
+
+```scss
+.profile-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 1rem;
+  margin: 0;
+}
+
+.profile-grid dt {
+  font-weight: 600;
+}
+
+.profile-grid dd {
+  margin: 0;
+}
+```
+
 ## 画像運用ルール
 - 画像置き場の原則
   - Projects: **Page Bundle に同梱**（例：`content/projects/<slug>/cover.webp`）

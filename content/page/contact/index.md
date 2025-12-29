@@ -9,10 +9,13 @@ menu:
 ---
 
 ## メールアドレス
-Email: yasushitech@gmail.com
+Email: yasushitech@gmail.com  
+※上記のほか、所属大学のメールアドレスからご連絡する場合があります。
 
 ## リンク集
-- twitter(サークル公式アカウント): https://twitter.com/souz_create
-- twitter(個人アカウント): https://twitter.com/yasushi_tech
-- Booth: https://yasushitech.booth.pm/
-- GitHub: https://github.com/ys4i
+<dl class="profile-grid">
+  <dt>twitter(サークル公式アカウント)</dt><dd><a class="link" href="https://twitter.com/souz_create" target="_blank" rel="noopener">https://twitter.com/souz_create</a></dd>
+  <dt>twitter(個人アカウント)</dt><dd><a class="link" href="https://twitter.com/yasushi_tech" target="_blank" rel="noopener">https://twitter.com/yasushi_tech</a></dd>
+  <dt>Booth</dt><dd><a class="link" href="https://yasushitech.booth.pm/" target="_blank" rel="noopener">https://yasushitech.booth.pm/</a></dd>
+  <dt>GitHub</dt><dd><a class="link" href="https://github.com/ys4i" target="_blank" rel="noopener">https://github.com/ys4i</a></dd>
+</dl>

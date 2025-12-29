@@ -16,7 +16,7 @@ menu:
 ## 自己紹介  
 <dl class="profile-grid">
   <dt>ハンドルネーム</dt><dd>やすし (yasushi)</dd>
-  <dt>大学</dt><dd>学部生(理系) 電気電子工学、情報系</dd>
+  <dt>大学・専門</dt><dd>学部生(理系) 電気電子工学、情報系</dd>
   <dt>技術・開発</dt><dd>技術系団体 souz(そうぞう) 代表</dd>
 </dl>
 
