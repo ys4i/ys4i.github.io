@@ -1,6 +1,6 @@
 baseurl: https://ys4i.github.io/
 languageCode: ja-jp
-title: ys4i portfolio
+title: yasushi portfolio
 theme: hugo-theme-stack
 
 DefaultContentLanguage: ja
