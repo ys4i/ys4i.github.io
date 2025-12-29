@@ -57,3 +57,54 @@
 .profile-grid dd {
   margin: 0;
 }
+
+.details-outline {
+  margin: 0.75rem 0 1rem;
+  width: 100%;
+  --details-content-gap: 1.5em;
+}
+
+.details-outline > summary {
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.95rem;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: var(--card-border-radius);
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+  background: var(--card-background);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+
+.details-outline > summary::after {
+  content: "▾";
+  font-size: 0.9em;
+  margin-left: auto;
+  transition: transform 0.2s ease;
+}
+
+.details-outline[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+.details-outline > summary::marker {
+  content: "";
+}
+
+.details-outline > summary::-webkit-details-marker {
+  display: none;
+}
+
+.details-outline > summary:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.details-outline > summary + * {
+  margin-top: var(--details-content-gap);
+}
