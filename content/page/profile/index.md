@@ -1,5 +1,6 @@
 ---
 title: yasushi
+slug: Profile
 description: 回路とソフトウェアで体験を届ける
 menu:
   main:
