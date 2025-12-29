@@ -122,8 +122,9 @@ menu:
 -->
 
 ## 連絡先
-- Email: yasushitech@gmail.com
-- GitHub: https://github.com/ys4i
-- Twitter: https://twitter.com/yasushi_tech
-
+<dl class="profile-grid">
+  <dt>Email</dt><dd><a class="link" href="mailto:yasushitech@gmail.com">yasushitech@gmail.com</a></dd>
+  <dt>GitHub</dt><dd><a class="link" href="https://github.com/ys4i" target="_blank" rel="noopener">https://github.com/ys4i</a></dd>
+  <dt>Twitter</dt><dd><a class="link" href="https://twitter.com/yasushi_tech" target="_blank" rel="noopener">https://twitter.com/yasushi_tech</a></dd>
+</dl>
 ※上記のほか、所属大学のメールアドレスからご連絡する場合があります。

@@ -9,7 +9,9 @@ menu:
 ---
 
 ## メールアドレス
-Email: yasushitech@gmail.com  
+<dl class="profile-grid">
+  <dt>Email</dt><dd><a class="link" href="mailto:yasushitech@gmail.com">yasushitech@gmail.com</a></dd>
+</dl>
 ※上記のほか、所属大学のメールアドレスからご連絡する場合があります。
 
 ## リンク集
