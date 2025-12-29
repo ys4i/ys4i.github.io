@@ -43,3 +43,17 @@
   height: 100%;
   border: 0;
 }
+.profile-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 1rem;
+  margin: 0;
+}
+
+.profile-grid dt {
+  font-weight: 600;
+}
+
+.profile-grid dd {
+  margin: 0;
+}
