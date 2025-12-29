@@ -1,27 +1,27 @@
 ---
-title: Profile
-description: 回路とソフトウェアで体験を届けるエンジニア
+title: yasushi
+description: 回路とソフトウェアで体験を届ける
 menu:
   main:
+    name: Profile
     weight: -100
     params:
       icon: user
 ---
 
 {{< figure src="cover.webp" alt="プロフィール画像" >}}
-## プロフィール
+聞いて、整理して、作る。要件とプロダクトをつなぐエンジニアです。  
+試作から製品化・展示まで、体験として仕上げます。  
+## 自己紹介  
 <dl class="profile-grid">
   <dt>ハンドルネーム</dt><dd>やすし (yasushi)</dd>
-  <dt>肩書き</dt><dd>ハードウェア・ソフトウェアエンジニア</dd>
   <dt>大学</dt><dd>学部生(理系) 電気電子工学、情報系</dd>
   <dt>技術・開発</dt><dd>技術系団体 souz(そうぞう) 代表</dd>
 </dl>
 
-## 自己紹介
-聞いて、整理して、作る。要件とプロダクトをつなぐエンジニアです。  
-試作から製品化・展示まで、体験として仕上げます。  
+## 実績 / 経歴
 <dl class="profile-grid">
-  <dt>実務経験</dt><dd>ODM/受託（e-lamp）</dd>
+  <dt>実務経験</dt><dd>ODM供給 / 受託（e-lampなど）</dd>
   <dt>雑誌掲載</dt><dd>@DIME・ステレオ時代neo</dd>
   <dt>代表作</dt><dd>YSP-01 / Analightic</dd>
 </dl>
@@ -41,9 +41,8 @@ menu:
 このほか雑誌執筆、学会発表(登壇/ポスター)予定。
 {{% /details %}}
 
-## スキル
-- **強み**  
-  回路、ソフトからユーザー体験までを俯瞰し、量産・頒布・マーケまで見据えた設計提案と、短期プロトタイピングを両立できます。  
+## スキル / 強み
+回路、ソフトウェアからユーザー体験までを俯瞰し、量産・頒布・マーケティングまで見据えた設計提案と、短期プロトタイピングを両立できます。  
 
 {{% details summary="**スキルセット詳細（クリックで開閉）**" class="details-outline" %}}  
 - **プログラミング言語 / ファームウェア開発**
@@ -90,7 +89,7 @@ menu:
   数式由来の連続曲面が浮かび上がるランプシェード  
   [Analightic紹介ページ]({{< relref "projects/analightic/index.md" >}})    
 
-**この他([プロジェクトの一覧]({{< relref "projects/_index.md" >}}))も併せてご覧ください** 
+**この他[プロジェクトの一覧]({{< relref "projects/_index.md" >}})も併せてご覧ください** 
 
 ## ODM供給・業務委託事例
 ※ODM供給: 他社ブランド製品を、設計から量産まで一括で受託して供給すること
@@ -125,3 +124,5 @@ menu:
 - Email: yasushitech@gmail.com
 - GitHub: https://github.com/ys4i
 - Twitter: https://twitter.com/yasushi_tech
+
+※上記のほか、所属大学のメールアドレスからご連絡する場合があります。
