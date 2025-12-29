@@ -17,7 +17,8 @@ menu:
 <dl class="profile-grid">
   <dt>ハンドルネーム</dt><dd>やすし (yasushi)</dd>
   <dt>肩書き</dt><dd>ハードウェア・ソフトウェアエンジニア</dd>
-  <dt>所属</dt><dd>技術系サークル souz(そうぞう) 代表</dd>
+  <dt>大学</dt><dd>学部生(理系) 電気電子工学、情報系</dd>
+  <dt>技術・開発</dt><dd>技術系団体 souz(そうぞう) 代表</dd>
 </dl>
 
 ## 自己紹介
@@ -41,7 +42,10 @@ menu:
 | 2023~ | 自主制作プロダクトの展示・頒布を開始 |  |
 | 2023~24 | e-lamp社「e-lamp ONE」「e-lamp ONE sky」をODM供給 |  |
 | 2023 | 「@DIME」誌(小学館) 掲載 | 記事内[5ページ](https://dime.jp/genre/1689809/5/) に<span style="white-space: nowrap;">「YA-YMH142」</span>が掲載 |
+| 2025 | 「エレキ万博」LT登壇 | [公式HP](https://eleki-expo2025.cqpub.co.jp/) |
 | 2025 | 「ステレオ時代neo」誌(合同会社ステレオ時代) Vol.10 掲載 | [雑誌紹介ページ](https://stereojidai.com/blogs/news/%E3%82%B9%E3%83%86%E3%83%AC%E3%82%AA%E6%99%82%E4%BB%A3neo-vol-10%E3%81%AF2025%E5%B9%B49%E6%9C%883%E6%97%A5%E7%99%BA%E5%A3%B2%E3%81%A7%E3%81%99) | 
+
+このほか雑誌執筆、学会発表(登壇/ポスター)予定。
 {{% /details %}}
 
 ## スキル
