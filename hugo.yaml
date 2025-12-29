@@ -41,14 +41,14 @@ menu:
       params:
         icon: brand-github
     - identifier: twitter
-      name: Twitter
+      name: twitter
       url: https://twitter.com/yasushi_tech
       weight: 20
       params:
         icon: brand-twitter
         newTab: true
     - identifier: souz
-      name: Souz Create
+      name: souz
       url: https://twitter.com/souz_create
       weight: 25
       params:
