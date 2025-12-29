@@ -1,0 +1,8 @@
+{{- $summary := .Get "summary" | default "Details" -}}
+{{- $summary = $summary | markdownify | replaceRE "(?s)^<p>(.*)</p>$" "$1" -}}
+{{- $open := .Get "open" | default "" | lower -}}
+{{- $isOpen := or (eq $open "true") (eq $open "1") (eq $open "open") -}}
+<details{{ with .Get "class" }} class="{{ . }}"{{ end }}{{ if $isOpen }} open{{ end }}>
+  <summary>{{ $summary | safeHTML }}</summary>
+  {{ .Inner }}
+</details>
