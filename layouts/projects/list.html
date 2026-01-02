@@ -1,0 +1,13 @@
+{{ define "head" }}
+  {{- $target := "/" | relLangURL -}}
+  <meta http-equiv="refresh" content="0; url={{ $target }}">
+  <script>window.location.replace("{{ $target }}");</script>
+{{ end }}
+
+{{ define "main" }}
+  {{- $target := "/" | relLangURL -}}
+  <p>Redirecting to <a href="{{ $target }}">{{ $target }}</a>...</p>
+{{ end }}
+
+{{ define "left-sidebar" }}{{ end }}
+{{ define "right-sidebar" }}{{ end }}
