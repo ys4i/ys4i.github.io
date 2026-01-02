@@ -2,6 +2,11 @@
   margin: 0.75rem 0;
 }
 
+/* Override base font-size to 100% */
+html {
+  font-size: 75%;
+}
+
 .media--video {
   max-width: 960px;
   margin-left: auto;
