@@ -108,3 +108,13 @@
 .details-outline > summary + * {
   margin-top: var(--details-content-gap);
 }
+
+.menu-social {
+  gap: 12px;
+}
+
+.menu-social svg {
+  width: 32px;
+  height: 32px;
+  stroke-width: 1.5;
+}
