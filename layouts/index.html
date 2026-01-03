@@ -1,0 +1,28 @@
+{{ define "main" }}
+    {{ if .Content }}
+        <section class="home-intro">
+            {{ .Content }}
+        </section>
+    {{ end }}
+
+    {{ $profile := .Site.GetPage "page/profile" }}
+    {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+    {{ $filtered := where $pages "Params.hidden" "!=" true }}
+    {{ $pag := .Paginate ($filtered) }}
+
+    <section class="article-list">
+        {{ with $profile }}
+            {{ partial "article-list/default" . }}
+        {{ end }}
+        {{ range $index, $element := $pag.Pages }}
+            {{ partial "article-list/default" . }}
+        {{ end }}
+    </section>
+
+    {{- partial "pagination.html" . -}}
+    {{- partial "footer/footer" . -}}
+{{ end }}
+
+{{ define "right-sidebar" }}
+    {{ partial "sidebar/right.html" (dict "Context" . "Scope" "homepage") }}
+{{ end }}

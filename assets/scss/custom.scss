@@ -123,3 +123,14 @@ html {
   height: 32px;
   stroke-width: 1.5;
 }
+
+.home-intro {
+  margin-bottom: var(--section-separation);
+}
+
+.article-list article .article-image img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+}

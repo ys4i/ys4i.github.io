@@ -2,6 +2,8 @@
 title: yasushi
 slug: Profile
 description: 回路とソフトウェアで体験を届ける
+image: cover.webp
+layout: profile
 menu:
   main:
     name: Profile
@@ -10,7 +12,9 @@ menu:
       icon: user
 ---
 
-{{< figure src="cover.webp" alt="プロフィール画像" >}}
+<!-- 概要: Profileページは layout: profile でヘッダー画像を非表示にした。編集箇所: 本ファイルと layouts/page/profile.html -->
+
+{{< figure src="profile_3x2.webp" alt="プロフィール画像" >}}
 聞いて、整理して、作る。要件とプロダクトをつなぐエンジニアです。  
 試作から製品化・展示まで、体験として仕上げます。  
 ## 自己紹介  
