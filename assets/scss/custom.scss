@@ -63,6 +63,30 @@ html {
   margin: 0;
 }
 
+.skill-list {
+  // Align skill labels and descriptions without tables
+  display: grid;
+  grid-template-columns: minmax(10rem, 14rem) 1fr;
+  gap: 0.3rem 1rem;
+  margin: 0.35rem 0 0.9rem;
+}
+
+.skill-list dt {
+  font-weight: 600;
+  margin: 0;
+}
+
+.skill-list dd {
+  margin: 0;
+}
+
+.skill-years {
+  margin-left: 0.35rem;
+  opacity: 0.7;
+  font-weight: 400;
+  font-size: 0.95em;
+}
+
 .details-outline {
   margin: 0.75rem 0 1rem;
   width: 100%;

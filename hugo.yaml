@@ -80,3 +80,8 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+  # どの階層まで目次を描画するか
+  tableOfContents:
+    startLevel: 2
+    endLevel: 2 # 大項目のみ目次に表示
+    

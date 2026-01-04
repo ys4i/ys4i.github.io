@@ -50,34 +50,79 @@ menu:
 回路、ソフトウェアからユーザー体験までを俯瞰し、量産・頒布・マーケティングまで見据えた設計提案と、短期プロトタイピングを両立できます。  
 
 {{% details summary="**スキルセット詳細（クリックで開閉）**" class="details-outline" %}}  
-- **プログラミング言語 / ファームウェア開発**
-  - C / C++(8年): 競技用電気自動車のブラシレスモータ正弦波駆動、ワイヤレスDAC用ファームウェア開発
-  - Python(7年): データ分析、画像認識
-- **開発環境**
-  - Arch Linux(4年): 開発環境として使用(パッケージマネージャで依存関係・ツールを管理)
-  - Docker: 開発環境のコンテナ化、顧客への迅速な環境引き渡し
-  - Git: バージョン管理と迅速な切り戻し
-- **組込みプラットフォーム**
-  - Arduino(8年): 顧客企業向けIoTデバイスのファームウェア開発
-  - RaspberryPi, ESP32, nRF系マイコン: IoT機器試作・開発
-  - STM32, CH32, ATtiny: USB機器・省電力機器試作・検証
-- **電子回路 / 基板 / シミュレーション**
-  - Eagle(3年): 競技用電気自動車のブラシレスモータ正弦波駆動回路の設計
-  - KiCad(4年): アンプ、DC-DC、LDO、IoT機器の回路・PCB設計
-  - LTspice: 回路シミュレーション
-- **CAD / デザイン**
-  - 3DCAD
-    - Autodesk Fusion: 機器筐体の作成
-    - Onshape: 機器筐体の作成
-    - openSCAD(プログラムで3Dモデルを定義): 治具の自動生成
-  - デザイン
-    - Adobe Illustrator: 切削加工用データ作成、宣伝用ポスター作成
-    - Canva: 宣伝用ポスター作成
-- **計測 / 実験**
-  - オシロスコープ: 動作確認、各種デバッグ
-  - スペクトラムアナライザ: 電源リプル、スパイク評価
-  - ネットワークアナライザ: アンプ性能評価
-  - ひずみ計: アンプひずみ率測定
+#### プログラミング言語 / ファームウェア開発
+<dl class="skill-list">
+  <dt>C / C++<span class="skill-years">(8年)</span></dt>
+  <dd>競技用電気自動車のブラシレスモータ正弦波駆動、ワイヤレスDAC用ファームウェア開発</dd>
+  <dt>Python<span class="skill-years">(7年)</span></dt>
+  <dd>データ分析、PLLシミュレータ開発、IoT機器PC側フロントエンド開発</dd>
+</dl>
+
+#### 開発環境
+<dl class="skill-list">
+  <dt>Arch Linux<span class="skill-years">(4年)</span></dt>
+  <dd>開発環境として使用(パッケージマネージャで依存関係・ツールを管理)</dd>
+  <dt>Docker</dt>
+  <dd>開発環境のコンテナ化、顧客への迅速な環境引き渡し</dd>
+  <dt>Git</dt>
+  <dd>バージョン管理と迅速な切り戻し</dd>
+  <dt>GitHub Pages</dt>
+  <dd>本サイトの構築、運用</dd>
+</dl>
+
+#### 組込みプラットフォーム
+<dl class="skill-list">
+  <dt>Arduino<span class="skill-years">(8年)</span></dt>
+  <dd>顧客企業向けIoTデバイスのファームウェア開発</dd>
+  <dt>Raspberry Pi</dt>
+  <dd>サーバー構築</dd>
+  <dt>ESP32 / nRF52</dt>
+  <dd>無線機器試作・開発</dd>
+  <dt>STM32 / CH32</dt>
+  <dd>USB機器・競技用電気自動車のブラシレスモータ</dd>
+  <dt>ATtiny</dt>
+  <dd>省電力機器試作・検証</dd>
+</dl>
+
+#### 電子回路 / 基板 / シミュレーション
+<dl class="skill-list">
+  <dt>Eagle<span class="skill-years">(3年)</span></dt>
+  <dd>競技用電気自動車のブラシレスモータ正弦波駆動回路の設計</dd>
+  <dt>KiCad<span class="skill-years">(4年)</span></dt>
+  <dd>アンプ、DC-DC、LDO、IoT機器の回路・PCB設計</dd>
+  <dt>LTspice</dt>
+  <dd>回路シミュレーション</dd>
+</dl>
+
+#### 3DCAD
+<dl class="skill-list">
+  <dt>Autodesk Fusion</dt>
+  <dd>機器筐体の作成</dd>
+  <dt>Onshape</dt>
+  <dd>機器筐体の作成</dd>
+  <dt>openSCAD</dt>
+  <dd>プログラムで3Dモデルを定義、治具の自動生成</dd>
+</dl>
+
+#### デザイン
+<dl class="skill-list">
+  <dt>Adobe Illustrator</dt>
+  <dd>切削加工用データ作成、宣伝用ポスター作成</dd>
+  <dt>Canva</dt>
+  <dd>宣伝用ポスター作成</dd>
+</dl>
+
+#### 計測 / 実験
+<dl class="skill-list">
+  <dt>オシロスコープ</dt>
+  <dd>動作確認、各種デバッグ</dd>
+  <dt>スペクトラムアナライザ</dt>
+  <dd>電源リプル、スパイク評価</dd>
+  <dt>ネットワークアナライザ</dt>
+  <dd>アンプ性能評価</dd>
+  <dt>ひずみ計</dt>
+  <dd>アンプひずみ率測定</dd>
+</dl>
 {{% /details %}}
 
 ## 主なプロジェクト
