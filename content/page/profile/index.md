@@ -97,11 +97,11 @@ menu:
 #### 3DCAD
 <dl class="skill-list">
   <dt>Autodesk Fusion</dt>
-  <dd>機器筐体の作成</dd>
+  <dd>モデリング、筐体嵌合の確認</dd>
   <dt>Onshape</dt>
   <dd>機器筐体の作成</dd>
   <dt>openSCAD</dt>
-  <dd>プログラムで3Dモデルを定義、治具の自動生成</dd>
+  <dd>3Dモデルをプログラムで自動生成</dd>
 </dl>
 
 #### デザイン
