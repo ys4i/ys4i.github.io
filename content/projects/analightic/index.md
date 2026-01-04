@@ -24,9 +24,9 @@ G-coordinatorで関数的に座標を定義した精密メッシュに光が透�
 - 形状生成（パラメトリックデザイン）
 - 試作と仕上げ
   
-## ご協力いただいた方
+## 共同制作者
 [タム/Taniguchi Tomohiro](https://twitter.com/tamutamu3D) 様  
-[ヤダニウム |Yada Misuzu](https://twitter.com/yada_kaeru) 様  
+[ヤダニウム|Yada Misuzu](https://twitter.com/yada_kaeru) 様  
 [超真空管](https://twitter.com/PC980186) 様  
 
 ## 技術スタック
