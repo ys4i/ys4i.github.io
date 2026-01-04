@@ -124,6 +124,19 @@ html {
   stroke-width: 1.5;
 }
 
+// スマホ表示時のみSNSアイコンを大きくする
+@media (max-width: 768px) {
+  .menu-social {
+    gap: 14px;
+  }
+
+  .menu-social svg {
+    width: 36px;
+    height: 36px;
+    stroke-width: 1.6;
+  }
+}
+
 .home-intro {
   margin-bottom: var(--section-separation);
 }
