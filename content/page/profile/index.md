@@ -76,11 +76,11 @@ menu:
   <dt>Arduino<span class="skill-years">(8年)</span></dt>
   <dd>顧客企業向けIoTデバイスのファームウェア開発</dd>
   <dt>Raspberry Pi</dt>
-  <dd>サーバー構築</dd>
+  <dd>各種サーバー構築</dd>
   <dt>ESP32 / nRF52</dt>
   <dd>無線機器試作・開発</dd>
   <dt>STM32 / CH32</dt>
-  <dd>USB機器・競技用電気自動車のブラシレスモータ</dd>
+  <dd>USB機器・競技用電気自動車のブラシレスモータドライバー開発</dd>
   <dt>ATtiny</dt>
   <dd>省電力機器試作・検証</dd>
 </dl>
