@@ -102,7 +102,7 @@ menu:
   {{< youtube u3EIpsf70VQ >}}
   担当: 回路設計・ファームウェア開発・展示会デモ運用  
   成果: センサーモジュールから量産/市場投入まで一貫対応  
-  [紹介ページ]({{< relref "projects/e-lamp/index.md" >}})
+  [e-lamp紹介ページ]({{< relref "projects/e-lamp/index.md" >}})
 
 1. **(匿名1)オーディオ専業メーカー様向け製品開発**  
   {{< figure src="wirelessDAC.webp" alt="ワイヤレスオーディオレシーバー イメージ図" class="img-figure" caption="※画像はイメージ図で実際と異なります" >}}
