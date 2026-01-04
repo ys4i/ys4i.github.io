@@ -130,19 +130,42 @@ html {
     // SNS数が変わったらこの値を更新する
     --social-count: 4;
     --social-gap: 14px;
-    width: 100%;
+    --social-max-size: 64px;
+    --social-size: clamp(
+      36px,
+      calc(
+        (100vw - (var(--social-count) - 1) * var(--social-gap)) /
+          var(--social-count)
+      ),
+      var(--social-max-size)
+    );
+    width: 100vw;
+    max-width: calc(
+      var(--social-count) * var(--social-max-size) +
+        (var(--social-count) - 1) * var(--social-gap)
+    );
+    margin: 0 auto 0 0;
+    justify-content: flex-start;
+    align-items: center;
     gap: var(--social-gap);
   }
 
+  .menu-social li {
+    flex: 0 0 var(--social-size);
+  }
+
+  .menu-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--social-size);
+    height: var(--social-size);
+  }
+
   .menu-social svg {
-    width: calc(
-      (100% * 2 / 3 - (var(--social-count) - 1) * var(--social-gap)) /
-        var(--social-count)
-    );
-    height: calc(
-      (100% * 2 / 3 - (var(--social-count) - 1) * var(--social-gap)) /
-        var(--social-count)
-    );
+    width: 100%;
+    height: 100%;
+    display: block;
     stroke-width: 1.6;
   }
 }
