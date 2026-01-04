@@ -26,9 +26,9 @@ menu:
 
 ## 実績 / 経歴
 <dl class="profile-grid">
-  <dt>実務経験</dt><dd>ODM供給 / 受託（e-lampなど）</dd>
-  <dt>雑誌掲載</dt><dd>@DIME・ステレオ時代neo</dd>
-  <dt>代表作</dt><dd>YSP-01 / Analightic</dd>
+  <dt>実務経験</dt><dd>「e-lamp」他 ODM供給・受託</dd>
+  <dt>雑誌掲載</dt><dd>「@DIME」・「ステレオ時代neo」</dd>
+  <dt>代表作</dt><dd>「YSP-01」・「Analightic」</dd>
 </dl>
 
 {{% details summary="**実績 / 経歴 / メディア掲載 詳細（クリックで開閉）**" class="details-outline" %}}  
