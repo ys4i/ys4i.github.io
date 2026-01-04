@@ -106,19 +106,25 @@ html {
 .article-content .project-meta + p,
 .article-content .profile-grid + p,
 .article-content .skill-list + p {
-  margin-top: 0.25rem;
+  margin-top: 0.35rem;
 }
 
 .article-content figure + p,
 .article-content video + p,
+.article-content .video-wrapper + p,
 .article-content .full-bleed-media + p {
-  margin-top: 0.35rem;
+  margin-top: 0.7rem;
 }
 
 // Align spacing after media blocks with paragraph spacing below them
 .article-content figure {
   margin-top: 0;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0;
+}
+
+.article-content .video-wrapper {
+  margin-top: 0;
+  margin-bottom: 0.7rem;
 }
 
 .full-bleed-media {
