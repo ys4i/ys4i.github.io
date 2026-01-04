@@ -130,17 +130,19 @@ html {
     // SNS数が変わったらこの値を更新する
     --social-count: 4;
     --social-gap: 14px;
-    --social-size: calc(
-      (66.6667% - (var(--social-count) - 1) * var(--social-gap)) /
-        var(--social-count)
-    );
     width: 100%;
     gap: var(--social-gap);
   }
 
   .menu-social svg {
-    width: clamp(36px, var(--social-size), 64px);
-    height: clamp(36px, var(--social-size), 64px);
+    width: calc(
+      (100% * 2 / 3 - (var(--social-count) - 1) * var(--social-gap)) /
+        var(--social-count)
+    );
+    height: calc(
+      (100% * 2 / 3 - (var(--social-count) - 1) * var(--social-gap)) /
+        var(--social-count)
+    );
     stroke-width: 1.6;
   }
 }
