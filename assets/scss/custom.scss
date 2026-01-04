@@ -87,6 +87,47 @@ html {
   font-size: 0.95em;
 }
 
+.project-meta {
+  display: grid;
+  grid-template-columns: minmax(7rem, 9rem) 1fr;
+  gap: 0.15rem 0.75rem;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.project-meta dt {
+  font-weight: 600;
+  margin: 0;
+}
+
+.project-meta dd {
+  margin: 0;
+}
+
+.article-content .project-meta + p,
+.article-content .profile-grid + p,
+.article-content .skill-list + p {
+  margin-top: 0.25rem;
+}
+
+.article-content figure + p,
+.article-content video + p,
+.article-content .full-bleed-media + p {
+  margin-top: 0.35rem;
+}
+
+// Align spacing after media blocks with paragraph spacing below them
+.article-content figure {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+}
+
+.full-bleed-media {
+  display: block;
+  width: calc(100% + 2 * var(--card-padding));
+  margin-inline: calc(var(--card-padding) * -1);
+  max-width: none;
+}
+
 .details-outline {
   margin: 0.75rem 0 1rem;
   width: 100%;

@@ -55,7 +55,7 @@ menu:
   <dt>C / C++<span class="skill-years">(8年)</span></dt>
   <dd>競技用電気自動車のブラシレスモータ正弦波駆動、ワイヤレスDAC用ファームウェア開発</dd>
   <dt>Python<span class="skill-years">(7年)</span></dt>
-  <dd>データ分析、PLLシミュレータ開発、IoT機器PC側フロントエンド開発</dd>
+  <dd>データ分析、PLL回路シミュレータ開発、IoT機器PC側フロントエンド開発</dd>
 </dl>
 
 #### 開発環境
@@ -126,16 +126,17 @@ menu:
 {{% /details %}}
 
 ## 主なプロジェクト
-1. **ワイヤレススピーカー「YSP-01」**
+#### ワイヤレススピーカー「YSP-01」
   {{< figure src="/assets/images/about/YSP-01.webp" alt="ワイヤレススピーカー「YSP-01」" >}}
   音楽を聴くだけでなく、見て楽しめる、魅せるスピーカー  
   [YSP-01紹介ページ]({{< relref "projects/ysp-01/index.md" >}})  
 
-1. **ランプシェード「Analightic」**
-  <video controls playsinline preload="metadata" width="100%" muted loop autoplay>
+#### ランプシェード「Analightic」
+  <video class="full-bleed-media" controls playsinline preload="metadata" width="100%" muted loop autoplay>
     <source src="/assets/videos/analightic.mp4" type="video/mp4">
     お使いのブラウザは動画に対応していません。
   </video>
+  
   数式由来の連続曲面が浮かび上がるランプシェード  
   [Analightic紹介ページ]({{< relref "projects/analightic/index.md" >}})    
 
@@ -143,22 +144,29 @@ menu:
 
 ## ODM供給・業務委託事例
 ※全案件は守秘義務・知財・情報管理を遵守したうえで、反社排除を含む契約上の条項に従って取引しています。  
-1. **心拍可視化デバイス「e-lamp」**
+#### 心拍可視化デバイス「e-lamp」
   {{< youtube u3EIpsf70VQ >}}
-  担当: 回路設計・ファームウェア開発・展示会デモ運用  
-  成果: センサーモジュールから量産/市場投入まで一貫対応  
+  <dl class="project-meta">
+    <dt>担当</dt><dd>回路設計・ファームウェア開発・展示会デモ運用</dd>
+    <dt>成果</dt><dd>センサーモジュールから量産/市場投入まで一貫対応</dd>
+  </dl>
+
   [e-lamp紹介ページ]({{< relref "projects/e-lamp/index.md" >}})
 
-1. **(匿名1)オーディオ専業メーカー様向け製品開発**  
+#### (匿名1)オーディオ専業メーカー様向け製品開発  
   {{< figure src="wirelessDAC.webp" alt="ワイヤレスオーディオレシーバー イメージ図" class="img-figure" caption="※画像はイメージ図で実際と異なります" >}}
-  担当: 無線 + DAC 搭載オーディオ機器の開発・試作  
-  成果: 一次試作機を納品、フィードバックを基に二次試作中  
+  <dl class="project-meta">
+    <dt>担当</dt><dd>無線 + DAC 搭載オーディオ機器の開発・試作</dd>
+    <dt>成果</dt><dd>一次試作機を納品、フィードバックを基に二次試作中</dd>
+  </dl>
 
-1. **(匿名2)電子機器メーカー様: 回路シミュレーション(LTspice)**
+#### (匿名2)電子機器メーカー様: 回路シミュレーション(LTspice)
   {{< figure src="spice.webp" alt="シミュレーションイメージ図" class="img-figure" caption="※画像はイメージ図で実際と異なります" >}}
-  担当: フィルタ回路の設計・AC 解析(ゲイン/位相)  
-  成果: 仕様帯域の通過/不要帯域の抑圧を満たす回路として納品  
-
+  <dl class="project-meta">
+    <dt>担当</dt><dd>フィルタ回路の設計・AC 解析(ゲイン/位相)</dd>
+    <dt>成果</dt><dd>仕様帯域の通過/不要帯域の抑圧を満たす回路を納品</dd>
+  </dl>
+  
 ※ODM供給: 他社ブランド製品を、設計から量産まで一括で受託して供給すること  
 ※秘密保持契約(NDA)により、取引先名/型番/数量などの詳細を公開できない案件・実績が複数あります。    
 面談などでは開示可能範囲で担当範囲・設計意図・成果を説明可能です。  
