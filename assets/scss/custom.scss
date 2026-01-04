@@ -130,23 +130,23 @@ html {
   .menu-social {
     // SNS数が変わったらこの値を更新する
     --social-count: 5;
-    --social-gap: 14px;
+    --social-gap-factor: 0.35;
     --social-max-size: 64px;
     --social-size: clamp(
-      36px,
+      32px,
       calc(
-        (100vw - (var(--social-count) - 1) * var(--social-gap)) /
-          var(--social-count)
+        90vw /
+          (var(--social-count) +
+            (var(--social-count) - 1) * var(--social-gap-factor))
       ),
-      var(--social-max-size)
+      64px
     );
-    width: 100vw;
-    max-width: calc(
-      var(--social-count) * var(--social-max-size) +
-        (var(--social-count) - 1) * var(--social-gap)
-    );
-    margin: 0 auto 0 0;
+    --social-gap: calc(var(--social-size) * var(--social-gap-factor));
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
     justify-content: flex-start;
+    flex-wrap: nowrap;
     align-items: center;
     gap: var(--social-gap);
   }
