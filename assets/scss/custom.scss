@@ -121,6 +121,7 @@ html {
 .menu-social svg {
   width: 32px;
   height: 32px;
+  color: var(--body-text-color); // fillをcurrentColorに揃える
   stroke-width: 1.5;
 }
 
