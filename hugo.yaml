@@ -40,6 +40,13 @@ menu:
       url: https://github.com/ys4i
       params:
         icon: brand-github
+    - identifier: profile
+      name: Profile
+      url: /profile/
+      weight: 10
+      params:
+        icon: user
+        newTab: false
     - identifier: twitter
       name: twitter
       url: https://twitter.com/yasushi_tech

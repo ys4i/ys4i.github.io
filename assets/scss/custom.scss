@@ -129,7 +129,7 @@ html {
 @media (max-width: 768px) {
   .menu-social {
     // SNS数が変わったらこの値を更新する
-    --social-count: 4;
+    --social-count: 5;
     --social-gap: 14px;
     --social-max-size: 64px;
     --social-size: clamp(
