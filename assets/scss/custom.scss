@@ -124,15 +124,25 @@ html {
   stroke-width: 1.5;
 }
 
-// スマホ表示時のみSNSアイコンを大きくする
+// スマホ表示時は利用可能幅の2/3をSNSアイコンが占めるように自動計算
 @media (max-width: 768px) {
   .menu-social {
-    gap: 14px;
+    // SNS数が変わったらこの値を更新する
+    --social-count: 4;
+    --social-gap: 14px;
+    width: 100%;
+    gap: var(--social-gap);
   }
 
   .menu-social svg {
-    width: 36px;
-    height: 36px;
+    width: calc(
+      (100% * 2 / 3 - (var(--social-count) - 1) * var(--social-gap)) /
+        var(--social-count)
+    );
+    height: calc(
+      (100% * 2 / 3 - (var(--social-count) - 1) * var(--social-gap)) /
+        var(--social-count)
+    );
     stroke-width: 1.6;
   }
 }
