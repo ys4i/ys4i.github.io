@@ -1,0 +1,5 @@
+{{ $image := partialCached "helper/image" (dict "Context" . "Type" "articleList") .RelPermalink "articleList" }}
+<article class="{{ if $image.exists }}has-image{{ end }}">
+    <a class="article-link" href="{{ .RelPermalink }}" aria-label="{{ .Title }}"></a>
+    {{ partial "article/components/header" . }}
+</article>

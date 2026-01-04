@@ -181,3 +181,19 @@ html {
   aspect-ratio: 21 / 9;
   object-fit: cover;
 }
+
+.article-list article {
+  position: relative;
+}
+
+.article-list article .article-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.article-list article .article-link:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
