@@ -26,7 +26,7 @@ tags:
 [公演ページ](https://www.embodiedmedia.org/projects/boiling-mind-3-0)  
 ※Boiling Mind 3.0: ダンサーと観客が双方向に影響し合う“参加型・没入型”のダンス公演シリーズ  
 
-## 自分の担当
+## yasushiの担当
 - 回路設計
 - ファームウェア
 
