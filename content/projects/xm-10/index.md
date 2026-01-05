@@ -25,12 +25,12 @@ XM-10ではUSBDAC機能、真空管を交換可能な「tubeバススロット�
 #### XM-10 XL size
 {{< figure src="cover.webp" alt="XM-10 M,L size" >}}
 歴史ある「76」(UY-76)を持ち歩こう。  
-[頒布リンク](https://vacuum-tube.booth.pm/items/7755432)
+[XM-10XL頒布先](https://vacuum-tube.booth.pm/items/7755432)
 
 #### XM-10 M,L size
 {{< figure src="xm-10-m.webp" alt="XM-10 M,L size" >}}
-人気の「6SN7」をお手軽に！  
-[頒布リンク](https://vacuum-tube.booth.pm/items/6140167)
+人気の「6SN7」をお手軽に！GT管を差し替えて聴き比べよう。  
+[XM-10M,L頒布先](https://vacuum-tube.booth.pm/items/6140167)
 
 #### XM-10 S size
 {{< figure src="xm-10-s.webp" alt="XM-10 S size" class="img-figure" caption="※画像はM sizeにMT管を取り付け" >}}
@@ -76,3 +76,8 @@ UY-76 など
   <dt><a class="link" href="https://twitter.com/PC980186" target="_blank" rel="noopener">超真空管 氏</a></dt><dd>筐体設計、真空管増幅回路設計</dd>
   <dt><a class="link" href="https://twitter.com/61shikakumaru" target="_blank" rel="noopener">節句すずか 氏</a></dt><dd>外装イラスト</dd>
 </dl>
+
+## リンク
+[超真空管氏HP「真響電機」](https://shinkyodenki.com/)  
+[XM-10XL頒布先](https://vacuum-tube.booth.pm/items/7755432)  
+[XM-10M,L頒布先](https://vacuum-tube.booth.pm/items/6140167)  
