@@ -1,6 +1,5 @@
 ---
 title: YA-LT1399
-draft: true
 description: ビデオアンプを用いたオーディオアンプ
 image: cover.webp
 categories:
