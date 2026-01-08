@@ -34,6 +34,13 @@ params:
       - type: toc
 
 menu:
+  main:
+    - identifier: projects
+      name: Projects
+      url: /
+      weight: -90
+      params:
+        icon: categories
   social:
     - identifier: github
       name: GitHub
