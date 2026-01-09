@@ -9,6 +9,8 @@ categories:
 tags:
   - Audio
   - vacuumTube
+  - KiCad
+  - LTspice
 ---
 
 ## 概要
