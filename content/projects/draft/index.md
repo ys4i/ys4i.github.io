@@ -12,17 +12,15 @@ tags:
 ## 書くべきページ
 
 #### 共同製作
-XM-10
 XM-09
-YE-Tubelamp
 SZ-TubeDac
 
 #### 電子工作
 YE-LM4880
-YA-LT1399
 YE-XIAO-RP2350A 
 名刺基板 ESP32
 CH32V203
+YA-YMH142
 
 #### ぱわみ工作
 電気自動車モタドラ
