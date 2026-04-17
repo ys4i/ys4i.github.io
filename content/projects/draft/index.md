@@ -30,7 +30,6 @@ LEDドライバ
 定電流電源
 
 #### 研究に近い
-エアロバイク
 IMUtracker
 M5-accelmeter
 mp3プレーヤー
