@@ -25,18 +25,27 @@ XM-10ではUSBDAC機能、真空管を交換可能な「tubeバススロット�
 
 ## バリエーション
 #### XM-10 XL size
-{{< figure src="cover.webp" alt="XM-10 M,L size" >}}
+{{< figure src="cover.webp" alt="XM-10 XL size" >}}
 歴史ある「76」(UY-76)を持ち歩こう。  
-[XM-10XL頒布先](https://vacuum-tube.booth.pm/items/7755432)
+[XM-10XL頒布先](https://vacuum-tube.booth.pm/items/7755432)  
+[実店舗(サンエイ電機様)](https://twitter.com/sanei_denki)
 
-#### XM-10 M,L size
+#### XM-10 M,L size(TUBE-GO!!)
+{{< figure src="tube-go.webp" alt="tube-go (XM-10 M,L size)" >}}
+真空管の音を、どこへでも。  
+
+[「TUBE-GO!!」紹介サイト](https://shinkyodenki.com/TUBEGO)  
+[実店舗(サンエイ電機様)](https://twitter.com/sanei_denki)
+
+#### 【頒布終了】XM-10 M,L size(legacy)
 {{< figure src="xm-10-m.webp" alt="XM-10 M,L size" >}}
 人気の「6SN7」をお手軽に！GT管を差し替えて聴き比べよう。  
-[XM-10M,L頒布先](https://vacuum-tube.booth.pm/items/6140167)
+[【頒布終了】~~XM-10M,L頒布先~~](https://vacuum-tube.booth.pm/items/6140167)
 
-#### XM-10 S size
+#### 【頒布終了】XM-10 S size
 {{< figure src="xm-10-s.webp" alt="XM-10 S size" class="img-figure" caption="※画像はM sizeにMT管を取り付け" >}}
 ミニチュア(MT)管といつも一緒に！  
+
 [紹介ツイート](https://twitter.com/PC980186/status/1956454756840505725)
 
 ## 対応真空管
@@ -73,13 +82,14 @@ UY-76 など
 - 出力用バッファアンプモジュール
 - USB-DAC設計
 
-## 共同制作者
+## 共同制作者・ご協力いただいた方
 <dl class="profile-grid">
   <dt><a class="link" href="https://twitter.com/PC980186" target="_blank" rel="noopener">超真空管 氏</a></dt><dd>筐体設計、真空管増幅回路設計</dd>
-  <dt><a class="link" href="https://twitter.com/61shikakumaru" target="_blank" rel="noopener">節句すずか 氏</a></dt><dd>外装イラスト</dd>
+  <dt><a class="link" href="https://twitter.com/61shikakumaru" target="_blank" rel="noopener">節句すずか 様</a></dt><dd>外装イラスト</dd>
+  <dt><a class="link" href="https://twitter.com/tueks3" target="_blank" rel="noopener">tueks 様</a></dt><dd>「TUBE-GO!!」プロダクトデザイン</dd>
+  <dt><a class="link" href="https://twitter.com/GENKAKU1999" target="_blank" rel="noopener">ゲニカク 様</a></dt><dd>「TUBE-GO!!」構造・機構監修</dd>
 </dl>
 
 ## リンク
-[超真空管氏HP「真響電機」](https://shinkyodenki.com/)  
-[XM-10XL頒布先](https://vacuum-tube.booth.pm/items/7755432)  
-[XM-10M,L頒布先](https://vacuum-tube.booth.pm/items/6140167)  
+[「TUBE-GO!!」紹介サイト](https://shinkyodenki.com/TUBEGO)  
+[XM-10XL頒布先](https://vacuum-tube.booth.pm/items/7755432)
