@@ -1,6 +1,6 @@
 ---
 title: braille
-draft: false
+draft: true
 description: 点字3Dデータ自動生成システム
 image: cover.webp
 categories:
