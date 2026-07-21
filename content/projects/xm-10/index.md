@@ -34,7 +34,6 @@ XM-10ではUSBDAC機能、真空管を交換可能な「tubeバススロット�
 {{< figure src="tube-go.webp" alt="tube-go (XM-10 M,L size)" >}}
 真空管の音を、どこへでも。  
 
-[「TUBE-GO!!」紹介サイト](https://shinkyodenki.com/TUBEGO)  
 [実店舗(サンエイ電機様)](https://twitter.com/sanei_denki)
 
 #### 【頒布終了】XM-10 M,L size(legacy)
@@ -91,5 +90,4 @@ UY-76 など
 </dl>
 
 ## リンク
-[「TUBE-GO!!」紹介サイト](https://shinkyodenki.com/TUBEGO)  
 [XM-10XL頒布先](https://vacuum-tube.booth.pm/items/7755432)
