@@ -1,6 +1,6 @@
 ---
 title: YA-OPA2675
-description: 
+description: 優れた位相特性を持つ広帯域アンプ
 image: cover.webp
 categories:
   - Audio
