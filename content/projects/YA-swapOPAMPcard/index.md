@@ -1,5 +1,5 @@
 ---
-title: YA-swap-OPAMPcard
+title: YA-swapOPAMPcard
 description: オペアンプを交換しよう！名刺型ヘッドホンアンプ
 image: cover.webp
 categories:
@@ -11,7 +11,7 @@ tags:
 ---
 
 ## 概要
-「YA-swap-OPAMPcard」は、名刺サイズのヘッドホンアンプです。  
+「YA-swapOPAMPcard」は、名刺サイズのヘッドホンアンプです。  
 オペアンプを交換して音の違いを楽しもう！  
 
 ## 主な仕様
