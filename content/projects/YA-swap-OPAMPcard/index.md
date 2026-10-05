@@ -60,6 +60,14 @@ tags:
 
 {{% /details %}}
 
+## おまけ コンデンサーを交換して遊ぼう
+C1・C2には、静電容量0.47 μF・定格電圧50 V以上のコンデンサーを使用できます。以下はいずれも使用可能な候補です。
+- [フィルムコンデンサー（ルビコンF2D、0.47 μF 50 V）](https://akizukidenshi.com/catalog/g/g115089/)
+- [メタライズドポリエステルフィルムコンデンサー（ニッセイMMT、0.47 μF 50 V）](https://akizukidenshi.com/catalog/g/g105502/)
+- [メタライズドポリエステルフィルムコンデンサー（0.47 μF 100 V）](https://akizukidenshi.com/catalog/g/g114601/)
+- [積層・無誘導メタライズドポリエステルフィルムコンデンサー（0.47 μF 100 V）](https://akizukidenshi.com/catalog/g/g109791/)
+- [積層セラミックコンデンサー（X7R、0.47 μF 50 V）](https://akizukidenshi.com/catalog/g/g108148/)
+
 ## 技術スタック
 - KiCad
 - アナログ回路設計
