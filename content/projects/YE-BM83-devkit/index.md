@@ -14,7 +14,9 @@ tags:
 YE-BM83-devkitは、Microchip製Bluetooth 5.0ステレオオーディオモジュールBM83（BM83SM1-00AB）を、ブレッドボードで評価しやすい48ピンDIP形状（列間25.4 mm）に変換した開発ボードです。高音質DAC/ADC、USB Type-CとLiPoのデュアル電源（充電機能内蔵）、7個の操作用タクトスイッチ、LED、すべてのGPIOを備えています。
 
 ## 説明書
-(工事中、yasushiに催促してください)
+
+- [取扱説明書（PDF）](./manual/manual.pdf)
+- [回路図（PDF）](./manual/fig/schematic.pdf)
 
 ## 秋月電子 一括注文
 必要部品を一括で注文できます。

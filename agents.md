@@ -111,6 +111,13 @@
 - fast render が反映されにくい場合
   - `docker-compose.yml` の `command` に `--disableFastRender` を追加
 
+## YE-BM83-devkit のPDF同期
+- 取扱説明書と回路図は `ys4i/YE-BM83-devkit` の `master` を取得元とする。
+- このリポジトリをcloneした後、最初に `scripts/install-git-hooks.sh` を一度実行する。以降、pre-commit hookが取得元の最新PDFをページバンドルへコピーし、コミットに含める。
+- 同期対象は `manual/manual.pdf` と `manual/fig/schematic.pdf`。取得元コミットIDは `content/projects/YE-BM83-devkit/manual/source-commit.txt` に記録する。
+- hookはネットワーク取得に失敗した場合コミットを中断する。GitHub ActionsでもPDFが取得元と一致するか検査する。
+- 手動同期は `scripts/sync-ye-bm83-manual.sh --update`、同期確認のみは `scripts/sync-ye-bm83-manual.sh --check`。
+
 ## タスクリスト
 - [x] Projects の各カードに `image` と `tags` を必須で揃える。
 - [x] Projects の詳細に「担当/技術スタック/成果」を追記する。
