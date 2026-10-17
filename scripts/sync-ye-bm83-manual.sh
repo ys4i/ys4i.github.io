@@ -13,7 +13,7 @@ case "$mode" in
     ;;
 esac
 
-source_url="${YE_BM83_SOURCE_URL:-https://github.com/ys4i/YE-BM83-devkit.git}"
+source_url="${YE_BM83_SOURCE_URL:-git@github.com:ys4i/YE-BM83-devkit.git}"
 source_ref="${YE_BM83_SOURCE_REF:-master}"
 remote_paths=(
   "manual/manual.pdf"
