@@ -105,6 +105,10 @@
 
 ## 開発環境メモ
 - 想定 OS：Linux（開発者本人は Arch Linux + zsh を利用）。
+- ローカルプレビュー（Linux x86_64）
+  - 初回は `scripts/setup-preview.sh` を実行し、GitHub Actionsと同じHugo Extended 0.128.0をユーザー領域へ導入する（Docker・管理者権限は不要）。
+  - `hugo server --bind 127.0.0.1 --baseURL http://127.0.0.1:1313/` で起動する。
+  - `http://127.0.0.1:1313/` で確認する。終了は `Ctrl+C`。
 - ローカルプレビュー（Docker）
   - `docker compose up`
   - `http://localhost:1313/` で確認
@@ -117,6 +121,15 @@
 - 同期対象は `manual/manual.pdf` と `manual/fig/schematic.pdf`。取得元コミットIDは `content/projects/YE-BM83-devkit/manual/source-commit.txt` に記録する。
 - hookはネットワーク取得に失敗した場合コミットを中断する。取得元は非公開リポジトリのため、GitHub Actionsでは取得元にアクセスせず、コミット済みのPDFを使ってビルドする。
 - 手動同期は `scripts/sync-ye-bm83-manual.sh --update`、同期確認のみは `scripts/sync-ye-bm83-manual.sh --check`。
+
+## YE-SWlogic のPDF同期
+- 取扱説明書とAND・ORの回路図は `ys4i/YE-SWlogic` の `main` を取得元とする。
+- 同期対象は `manual/manual.pdf`、`manual/fig/schematic_and.pdf`、`manual/fig/schematic_or.pdf`。取得元コミットIDは `content/projects/YE-SWlogic/manual/source-commit.txt` に記録する。
+- YE-SWlogicで公開用PDFをGit管理するまでは、同期スクリプトは同じコミットIDのローカルチェックアウトを使う。既定パスは `../YE-SWlogic`。別のパスは `YE_SWLOGIC_SOURCE_DIR` で指定できる。ローカル側と取得元のコミットが一致しない場合は同期を中断する。
+- 取得元でPDFをGit管理した後は、リモートmainのPDFを同期する。URLとブランチは `YE_SWLOGIC_SOURCE_URL` と `YE_SWLOGIC_SOURCE_REF` で指定できる。
+- このページのPDFはHugoのビルドに同梱し、GitHub Actionsでは取得元に接続せずにサイトをビルドする。
+- 手動同期は `scripts/sync-ye-swlogic-manual.sh --update`、同期確認のみは `scripts/sync-ye-swlogic-manual.sh --check`。
+- pre-commitの利用開始時には、最初に `scripts/install-git-hooks.sh` を一度実行する。フックはBM83、続いてYE-SWlogicのPDFを取得して変更ファイルをステージする。
 
 ## タスクリスト
 - [x] Projects の各カードに `image` と `tags` を必須で揃える。
