@@ -1,8 +1,7 @@
 export const FIELDS = ['name', 'price', 'photo', 'note', 'drawer'];
 export const SIZE_PRESETS = [
   { id: 'card', name: '見出しカード', width: 116, height: 26, note: 'B-118-1の純正カード寸法です。' },
-  { id: 'front', name: '引き出し前面（外形）', width: 124, height: 63, note: '引き出しB-118の幅×高さを使った参考寸法です。凹凸や取っ手を避け、実測した貼付範囲に調整してください。' },
-  { id: 'side', name: '引き出し側面（外形）', width: 238, height: 63, note: '引き出しB-118の奥行×高さを使った参考寸法です。凹凸を避け、実測した貼付範囲に調整してください。' },
+  { id: 'front', name: '前面（取っ手側）', width: 120, height: 55, note: '前面の外形124×63mmより小さくした貼付用サイズです。取っ手や凹凸との干渉は試し刷りで確認してください。' },
 ];
 const aliases = {
   name: ['名前', '名称', '品名', '部品名', 'name'], price: ['価格', '単価', 'price'],
