@@ -76,6 +76,39 @@ async function upload(options) {
 }
 
 try {
+  await test('Excelなしで枠と¥だけの汎用テンプレートを印刷する', async () => {
+    await page.goto(`${base}/playground/drawer-labels/`);
+    assert.equal(await page.locator('#print').isDisabled(), true);
+    // Excel-specific price settings must not erase the ¥ on a blank template.
+    await page.uncheck('#show-price');
+    await page.selectOption('#unit', '');
+    await page.check('input[name=source][value=blank]'); await waitReady();
+    assert.equal(await page.locator('#print-root .label-card').count(), 12);
+    assert.deepEqual(await page.locator('#print-root .label-card').allTextContents(), Array(12).fill('¥'));
+    assert.equal(await page.locator('#print-root img').count(), 0);
+    assert.equal(await page.locator('#print-root .sheet').count(), 1);
+    assert.equal(await page.locator('#view-tabs').isVisible(), false);
+    await page.fill('#blank-count', '0');
+    await page.waitForFunction(() => document.getElementById('messages').textContent.includes('1〜500'));
+    assert.equal(await page.locator('#print').isDisabled(), true);
+    assert.equal(await page.locator('#print-root .label-card').count(), 0);
+    await page.fill('#blank-count', '13'); await waitReady();
+    assert.equal(await page.locator('#print-root .sheet').count(), 2);
+    await page.fill('#width', '70');
+    await page.fill('#height', '30'); await waitReady();
+    assert.equal(await page.locator('#print-root .sheet').count(), 1);
+    const size = await page.locator('#paper-preview .label-card').first().evaluate(el => [el.offsetWidth, el.offsetHeight]);
+    assert.ok(Math.abs(size[0] * 25.4 / 96 - 70) < .2);
+    assert.ok(Math.abs(size[1] * 25.4 / 96 - 30) < .2);
+    await page.click('#reset-size'); await waitReady();
+    await page.screenshot({ path: `${output}/template.png`, fullPage: true });
+    await page.emulateMedia({ media: 'print' });
+    await page.pdf({ path: `${output}/template.pdf`, preferCSSPageSize: true });
+    await page.emulateMedia({ media: 'screen' });
+    await page.check('input[name=source][value=excel]');
+    await page.waitForFunction(() => document.getElementById('print').disabled);
+    assert.equal(await page.locator('#print-root .label-card').count(), 0);
+  });
   await test('サンプル：画像付きExcelの取り込みと選択印刷', async () => {
     await page.goto(`${base}/playground/drawer-labels/`);
     assert.equal(await page.locator('meta[name=robots]').getAttribute('content'), 'noindex');
@@ -86,10 +119,17 @@ try {
     assert.equal(await page.locator('#print-root .label-card').count(), 6);
     assert.equal(await page.locator('#print-root img').count(), 6);
     assert.equal(await page.locator('#print-root .label-name').first().innerText(), '2.2Ω');
+    assert.equal(await page.locator('#print-root .label-id').count(), 0);
+    assert.equal(await page.locator('#show-drawer').count(), 0);
+    assert.equal(await page.locator('#print-root').evaluate(el => /R\d{2}C\d{2}/.test(el.textContent)), false);
     await page.screenshot({ path: `${output}/desktop.png`, fullPage: true });
     await page.click('[data-view=cabinet]');
     assert.equal(await page.locator('.drawer').count(), 70);
     await page.locator('button.drawer').first().click(); await waitReady();
+    assert.equal(await page.locator('#print-root .label-card').count(), 5);
+    await page.check('input[name=source][value=blank]'); await waitReady();
+    assert.equal(await page.locator('#print-root .label-card').count(), 12);
+    await page.check('input[name=source][value=excel]'); await waitReady();
     assert.equal(await page.locator('#print-root .label-card').count(), 5);
     await page.click('#select-none');
     await page.waitForFunction(() => document.getElementById('print').disabled);
@@ -115,7 +155,8 @@ try {
     await upload({ count: 70 }); await waitReady();
     assert.equal(await page.locator('#print-root .sheet').count(), 6);
     assert.equal(await page.locator('#print-root .label-card').count(), 70);
-    assert.equal(await page.locator('#print-root .label-id').last().innerText(), 'R14C05');
+    assert.equal(await page.locator('#print-root .label-card').last().getAttribute('data-drawer'), 'R14C05');
+    assert.equal(await page.locator('#print-root').evaluate(el => /R\d{2}C\d{2}/.test(el.textContent)), false);
     await page.emulateMedia({ media: 'print' });
     const dimensions = await page.locator('#print-root .label-card').first().evaluate(el => { const box = el.getBoundingClientRect(); return [box.width * 25.4 / 96, box.height * 25.4 / 96]; });
     assert.ok(Math.abs(dimensions[0] - 116) < 0.1);
@@ -144,6 +185,12 @@ try {
     await page.waitForFunction(() => document.getElementById('filename').textContent.includes('失敗'));
     assert.equal(await page.locator('#print-root .label-card').count(), 0);
     assert.equal(await page.locator('#print').isDisabled(), true);
+    await page.check('input[name=source][value=blank]'); await waitReady();
+    assert.equal(await page.locator('#print-root .label-card').count(), 12);
+    assert.equal(await page.locator('#messages').innerText(), '');
+    await page.check('input[name=source][value=excel]');
+    await page.waitForFunction(() => document.getElementById('print').disabled);
+    assert.equal(await page.locator('#print-root .label-card').count(), 0);
     await upload({ count: 1 }); await waitReady();
     await page.fill('#width', '278');
     await page.waitForFunction(() => document.getElementById('messages').textContent.includes('収まりません'));

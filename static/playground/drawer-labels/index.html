@@ -21,7 +21,13 @@
       <div class="work-grid">
         <aside class="controls" aria-label="ラベル作成の設定">
           <section class="panel">
-            <h2><span class="step">01</span> Excelを読み込む</h2>
+            <h2><span class="step">01</span> 作成方法</h2>
+            <fieldset class="mode-options"><legend class="visually-hidden">ラベルの作成方法</legend><label><input type="radio" name="source" value="excel" checked>Excelから</label><label><input type="radio" name="source" value="blank">汎用テンプレート</label></fieldset>
+            <div id="blank-options" hidden>
+              <p class="small muted">枠と¥だけを印刷します。名前や価格は、あとから手書きできます。</p>
+              <label class="field">印刷枚数<input id="blank-count" type="number" min="1" max="500" step="1" value="12"></label>
+            </div>
+            <div id="excel-input">
             <div id="dropzone" class="dropzone">
               <span class="file-symbol" aria-hidden="true">⊞</span>
               <strong>写真付きの表をここに</strong><span>.xlsx / 30 MBまで</span>
@@ -42,12 +48,16 @@
               <p>価格・写真・備考は空欄でも使えます。URLとIMAGE関数、暗号化ファイル、.xls形式には対応していません。数式は保存済みの計算結果を使います。</p>
               <p>表の上から順に、棚の左上から右へ割り当てます。任意の「引き出し」列を付けると、R01C01〜R14C05で位置を指定できます。</p>
             </details>
+            </div>
           </section>
           <section class="panel">
             <h2><span class="step">02</span> サイズと表示</h2>
             <div class="field-pair"><label class="field">幅 <span>mm</span><input id="width" type="number" min="20" max="277" step="0.1" value="116"></label><label class="field">高さ <span>mm</span><input id="height" type="number" min="12" max="190" step="0.1" value="26"></label></div>
-            <div class="field-pair"><label class="field">文字サイズ <span>pt</span><input id="font-size" type="number" min="8" max="28" step="1" value="16"></label><label class="field">価格の単位<select id="unit"><option value="¥">¥（円）</option><option value="">付けない</option></select></label></div>
-            <label class="check"><input id="show-photo" type="checkbox" checked>写真を表示</label><label class="check"><input id="show-price" type="checkbox" checked>価格を表示</label><label class="check"><input id="show-drawer" type="checkbox" checked>引き出し番号を表示</label>
+            <label class="field">文字サイズ <span>pt</span><input id="font-size" type="number" min="8" max="28" step="1" value="16"></label>
+            <div id="excel-display">
+              <label class="field">価格の単位<select id="unit"><option value="¥">¥（円）</option><option value="">付けない</option></select></label>
+              <label class="check"><input id="show-photo" type="checkbox" checked>写真を表示</label><label class="check"><input id="show-price" type="checkbox" checked>価格を表示</label>
+            </div>
             <button id="reset-size" class="text-button" type="button">標準サイズに戻す</button>
           </section>
           <section class="panel print-controls">
@@ -59,10 +69,10 @@
           </section>
         </aside>
         <section class="preview-area" aria-label="取り込み結果と印刷プレビュー">
-          <div class="preview-header"><div class="preview-title"><h2>Preview</h2><span id="counts" class="muted">Excelを読み込むと表示されます</span></div><div class="tabs" role="group" aria-label="表示切り替え"><button type="button" data-view="paper" aria-pressed="true">印刷用紙</button><button type="button" data-view="cabinet" aria-pressed="false">棚の配置</button><button type="button" data-view="table" aria-pressed="false">取り込み一覧</button></div></div>
+          <div class="preview-header"><div class="preview-title"><h2>Preview</h2><span id="counts" class="muted">Excelを読み込むと表示されます</span></div><div id="view-tabs" class="tabs" role="group" aria-label="表示切り替え"><button type="button" data-view="paper" aria-pressed="true">印刷用紙</button><button type="button" data-view="cabinet" aria-pressed="false">棚の配置</button><button type="button" data-view="table" aria-pressed="false">取り込み一覧</button></div></div>
           <div id="messages" aria-live="polite"></div>
           <div id="selection-bar" class="selection-bar" hidden><span id="selected-count"></span><div><button id="select-all" class="text-button" type="button">すべて選択</button><button id="select-none" class="text-button" type="button">解除</button></div></div>
-          <div id="empty" class="empty-state"><div class="mini-label" aria-hidden="true"><span>R01C01</span><strong>2.2Ω</strong><small>¥10　カーボン抵抗</small></div><h3>ひとつずつの部品に、見出しを。</h3><p>左のボタンからExcelを選択するか、<br>サンプルで仕上がりを確認できます。</p></div>
+          <div id="empty" class="empty-state"><div class="mini-label" aria-hidden="true"><strong>2.2Ω</strong><small>¥10　カーボン抵抗</small></div><h3>ひとつずつの部品に、見出しを。</h3><p>Excelを選ぶか、サンプルで仕上がりを確認できます。<br>手書き用には「汎用テンプレート」を選んでください。</p></div>
           <div id="paper-view" class="view" hidden><p class="view-hint">A4横に自動配置します。表示は画面に合わせて縮小しています。</p><div id="paper-preview"></div></div>
           <div id="cabinet-view" class="view" hidden><p class="view-hint">正面から見た配置です。部品をクリックすると印刷対象を切り替えます。</p><div id="cabinet" class="cabinet"></div></div>
           <div id="table-view" class="view" hidden><p class="view-hint">チェックした行だけを印刷します。</p><div class="table-scroll"><table><thead><tr><th scope="col">印刷</th><th scope="col">位置 / 行</th><th scope="col">名前</th><th scope="col">価格</th><th scope="col">写真</th><th scope="col">備考</th></tr></thead><tbody id="records"></tbody></table></div></div>

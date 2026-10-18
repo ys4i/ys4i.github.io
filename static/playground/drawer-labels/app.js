@@ -3,7 +3,7 @@ import { FIELDS, detectHeader, buildLabels, drawerAt, pageLayout, priceText } fr
 
 const $ = id => document.getElementById(id);
 const fieldNames = { name: '名前', price: '価格', photo: '写真', note: '備考', drawer: '引き出し' };
-const state = { book: null, sheet: null, records: [], errors: [], warnings: [], selected: new Set(), view: 'paper', busy: false, ready: false, revision: 0 };
+const state = { book: null, sheet: null, records: [], errors: [], warnings: [], selected: new Set(), mode: 'excel', view: 'paper', busy: false, ready: false, revision: 0 };
 let importId = 0;
 let lastPrintMode = 'all';
 
@@ -35,6 +35,7 @@ function busy(value) {
   state.busy = value;
   $('file').disabled = value;
   $('sample').disabled = value;
+  document.querySelectorAll('input[name=source]').forEach(input => { input.disabled = value; });
   $('print').disabled = true;
   $('calibrate').disabled = true;
   document.body.classList.add('print-blocked');
@@ -136,11 +137,20 @@ function settings() {
   const font = Number($('font-size').value);
   const layout = pageLayout(width, height);
   if (!Number.isFinite(font) || font < 8 || font > 28) throw new Error('文字サイズは8〜28ptにしてください。');
-  return { width, height, font, layout, photo: $('show-photo').checked, price: $('show-price').checked, drawer: $('show-drawer').checked, unit: $('unit').value };
+  const count = Number($('blank-count').value);
+  if (state.mode === 'blank' && (!Number.isInteger(count) || count < 1 || count > 500)) throw new Error('印刷枚数は1〜500の整数にしてください。');
+  return { width, height, font, layout, count, photo: $('show-photo').checked, price: $('show-price').checked, unit: $('unit').value };
 }
 function makeLabel(record, options) {
   const label = node('article', 'label-card');
   label.dataset.drawer = record.drawer;
+  if (record.blank) {
+    label.classList.add('template');
+    const copy = node('div', 'label-copy');
+    copy.append(node('div', 'label-price', '¥'));
+    label.append(copy);
+    return label;
+  }
   if (options.photo && record.photo) {
     const img = node('img', 'label-photo');
     img.src = record.photo;
@@ -148,7 +158,6 @@ function makeLabel(record, options) {
     label.append(img);
   }
   const copy = node('div', 'label-copy');
-  if (options.drawer) copy.append(node('div', 'label-id', record.drawer));
   copy.append(node('div', 'label-name', record.name));
   if (options.price && record.price !== '') copy.append(node('div', 'label-price', priceText(record.price, options.unit)));
   if (record.note) copy.append(node('div', 'label-note', record.note));
@@ -167,10 +176,16 @@ function makePages(records, options) {
   return pages;
 }
 function updateView() {
-  const hasRecords = state.records.length > 0;
+  const blank = state.mode === 'blank';
+  const hasRecords = blank || state.records.length > 0;
+  $('blank-options').hidden = !blank;
+  $('excel-input').hidden = blank;
+  $('excel-display').hidden = blank;
+  $('view-tabs').hidden = blank;
   $('empty').hidden = hasRecords;
-  $('selection-bar').hidden = !hasRecords;
-  for (const view of ['paper', 'cabinet', 'table']) $(`${view}-view`).hidden = !hasRecords || state.view !== view;
+  $('selection-bar').hidden = blank || !hasRecords;
+  const activeView = blank ? 'paper' : state.view;
+  for (const view of ['paper', 'cabinet', 'table']) $(`${view}-view`).hidden = !hasRecords || activeView !== view;
   document.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === state.view)));
 }
 function renderTable(options) {
@@ -250,8 +265,11 @@ async function render() {
   $('paper-preview').replaceChildren();
   updateView();
   let options;
+  const inputErrors = state.mode === 'excel' ? state.errors : [];
+  const warnings = state.mode === 'excel' ? state.warnings : [];
   try { options = settings(); } catch (error) {
-    showMessages([...state.errors, error.message], state.warnings);
+    showMessages([...inputErrors, error.message], warnings);
+    $('counts').textContent = state.mode === 'blank' ? '枚数とサイズを確認してください' : '設定を確認してください';
     return;
   }
   for (const root of [document.documentElement]) {
@@ -260,8 +278,10 @@ async function render() {
     root.style.setProperty('--label-font', `${options.font}pt`);
     root.style.setProperty('--columns', options.layout.columns);
   }
-  const selected = state.records.filter(record => state.selected.has(record.drawer));
-  $('counts').textContent = state.records.length ? `${state.records.length}件 / 写真 ${state.records.filter(record => record.photo).length}枚` : 'Excelを読み込むと表示されます';
+  const selected = state.mode === 'blank'
+    ? Array.from({ length: options.count }, (_, index) => ({ drawer: `blank-${index + 1}`, blank: true }))
+    : state.records.filter(record => state.selected.has(record.drawer));
+  $('counts').textContent = state.mode === 'blank' ? `汎用テンプレート ${options.count}枚` : state.records.length ? `${state.records.length}件 / 写真 ${state.records.filter(record => record.photo).length}枚` : 'Excelを読み込むと表示されます';
   $('selected-count').textContent = `${selected.length} / ${state.records.length} 件を印刷`;
   $('layout-info').textContent = `${options.layout.columns}列 × ${options.layout.rows}段 / ${options.layout.capacity}枚・ページ`;
   renderTable(options);
@@ -289,10 +309,10 @@ async function render() {
   $('print-root').append(...fittedPages);
   measurement.remove();
   scalePreview();
-  const errors = [...state.errors];
+  const errors = [...inputErrors];
   if (failed.some(Boolean)) errors.push('読み込めない写真があります。写真をPNGまたはJPEGに置き換えてExcelを保存し直してください。');
   if (overflows.length) errors.push(`${overflows.join('、')}：文字が収まりません。ラベルを大きくするか、Excelの文面を短くしてください。`);
-  showMessages(errors, state.warnings);
+  showMessages(errors, warnings);
   state.ready = selected.length > 0 && !errors.length;
   $('print').disabled = !state.ready;
   $('calibrate').disabled = !state.ready;
@@ -348,7 +368,11 @@ $('header-row').addEventListener('change', () => {
   if (row) createMapping(detectHeader([row]).mapping);
   rebuild();
 });
-for (const id of ['width', 'height', 'font-size', 'unit', 'show-photo', 'show-price', 'show-drawer']) $(id).addEventListener('input', render);
+for (const id of ['width', 'height', 'font-size', 'unit', 'show-photo', 'show-price', 'blank-count']) $(id).addEventListener('input', render);
+document.querySelectorAll('input[name=source]').forEach(input => input.addEventListener('change', () => {
+  state.mode = input.value;
+  render();
+}));
 $('reset-size').addEventListener('click', () => { $('width').value = 116; $('height').value = 26; $('font-size').value = 16; render(); });
 document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => { state.view = button.dataset.view; updateView(); scalePreview(); }));
 $('select-all').addEventListener('click', () => { state.selected = new Set(state.records.map(record => record.drawer)); render(); });
