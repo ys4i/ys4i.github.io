@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>引き出しPOP — Playground</title>
+  <link rel="stylesheet" href="../playground.css">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <div class="screen-ui">
+    <header class="site-header"><a href="../" class="wordmark"><span class="mark" aria-hidden="true">▦</span> Playground</a><a class="back-link" href="../../">Portfolio ↗</a></header>
+    <main class="workspace">
+      <section class="page-intro">
+        <div><p class="eyebrow">01 / ORGANIZE YOUR PARTS</p><h1>引き出しPOP<span>.</span></h1><p>写真付きのExcelを、部品棚の見出しカードに。</p></div>
+        <div class="product-tag"><strong>HOZAN B-415</strong><span>5列 × 14段 / 116 × 26 mm</span></div>
+      </section>
+      <div class="work-grid">
+        <aside class="controls" aria-label="ラベル作成の設定">
+          <section class="panel">
+            <h2><span class="step">01</span> Excelを読み込む</h2>
+            <div id="dropzone" class="dropzone">
+              <span class="file-symbol" aria-hidden="true">⊞</span>
+              <strong>写真付きの表をここに</strong><span>.xlsx / 30 MBまで</span>
+              <label for="file" class="button primary file-button">Excelファイルを選ぶ</label>
+              <input id="file" class="visually-hidden" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+            </div>
+            <p class="privacy">ファイルと写真は端末内で処理し、送信しません。</p>
+            <div class="sample-actions"><button id="sample" class="text-button" type="button">サンプルで試す</button><a href="./sample.xlsx" download>サンプル.xlsx ↓</a></div>
+            <p id="filename" class="file-status" role="status">ファイル未選択</p>
+            <div id="import-options" hidden>
+              <label class="field">シート<select id="sheet"></select></label>
+              <label class="field">見出しの行番号<input id="header-row" type="number" min="1" max="1048576" value="1"></label>
+              <details class="column-options"><summary>列の対応を変更</summary><div id="mapping" class="mapping"></div></details>
+            </div>
+            <details class="help"><summary>Excelの作り方</summary>
+              <p>「名前・価格・写真・備考」の見出しを付け、1行に1つの部品を入れてください。列の順序や表の開始位置は変更できます。</p>
+              <p>写真はセル内の画像、または通常の挿入画像に対応します。通常の画像は、左上を同じ行の「写真」セルの内側に置いてください。PNG・JPEG・GIF・WebPに対応します。</p>
+              <p>価格・写真・備考は空欄でも使えます。URLとIMAGE関数、暗号化ファイル、.xls形式には対応していません。数式は保存済みの計算結果を使います。</p>
+              <p>表の上から順に、棚の左上から右へ割り当てます。任意の「引き出し」列を付けると、R01C01〜R14C05で位置を指定できます。</p>
+            </details>
+          </section>
+          <section class="panel">
+            <h2><span class="step">02</span> サイズと表示</h2>
+            <div class="field-pair"><label class="field">幅 <span>mm</span><input id="width" type="number" min="20" max="277" step="0.1" value="116"></label><label class="field">高さ <span>mm</span><input id="height" type="number" min="12" max="190" step="0.1" value="26"></label></div>
+            <div class="field-pair"><label class="field">文字サイズ <span>pt</span><input id="font-size" type="number" min="8" max="28" step="1" value="16"></label><label class="field">価格の単位<select id="unit"><option value="¥">¥（円）</option><option value="">付けない</option></select></label></div>
+            <label class="check"><input id="show-photo" type="checkbox" checked>写真を表示</label><label class="check"><input id="show-price" type="checkbox" checked>価格を表示</label><label class="check"><input id="show-drawer" type="checkbox" checked>引き出し番号を表示</label>
+            <button id="reset-size" class="text-button" type="button">標準サイズに戻す</button>
+          </section>
+          <section class="panel print-controls">
+            <h2><span class="step">03</span> 印刷する</h2>
+            <p class="print-guide">A4横 / 倍率100%・実際のサイズ<br>ヘッダー・フッターはOFFにしてください。</p>
+            <button id="print" class="button primary" type="button" disabled>印刷 / PDFに保存</button>
+            <button id="calibrate" class="button secondary" type="button" disabled>1枚＋100mmの線を試し刷り</button>
+            <p class="small muted">PDFは印刷画面で「PDFに保存」を選択。最初に試し刷りで寸法と収まりをご確認ください。</p>
+          </section>
+        </aside>
+        <section class="preview-area" aria-label="取り込み結果と印刷プレビュー">
+          <div class="preview-header"><div class="preview-title"><h2>Preview</h2><span id="counts" class="muted">Excelを読み込むと表示されます</span></div><div class="tabs" role="group" aria-label="表示切り替え"><button type="button" data-view="paper" aria-pressed="true">印刷用紙</button><button type="button" data-view="cabinet" aria-pressed="false">棚の配置</button><button type="button" data-view="table" aria-pressed="false">取り込み一覧</button></div></div>
+          <div id="messages" aria-live="polite"></div>
+          <div id="selection-bar" class="selection-bar" hidden><span id="selected-count"></span><div><button id="select-all" class="text-button" type="button">すべて選択</button><button id="select-none" class="text-button" type="button">解除</button></div></div>
+          <div id="empty" class="empty-state"><div class="mini-label" aria-hidden="true"><span>R01C01</span><strong>2.2Ω</strong><small>¥10　カーボン抵抗</small></div><h3>ひとつずつの部品に、見出しを。</h3><p>左のボタンからExcelを選択するか、<br>サンプルで仕上がりを確認できます。</p></div>
+          <div id="paper-view" class="view" hidden><p class="view-hint">A4横に自動配置します。表示は画面に合わせて縮小しています。</p><div id="paper-preview"></div></div>
+          <div id="cabinet-view" class="view" hidden><p class="view-hint">正面から見た配置です。部品をクリックすると印刷対象を切り替えます。</p><div id="cabinet" class="cabinet"></div></div>
+          <div id="table-view" class="view" hidden><p class="view-hint">チェックした行だけを印刷します。</p><div class="table-scroll"><table><thead><tr><th scope="col">印刷</th><th scope="col">位置 / 行</th><th scope="col">名前</th><th scope="col">価格</th><th scope="col">写真</th><th scope="col">備考</th></tr></thead><tbody id="records"></tbody></table></div></div>
+          <footer class="preview-footer"><span>LOCAL FILES, LOCAL PROCESSING.</span><span id="layout-info">A4 LANDSCAPE / B-415</span></footer>
+        </section>
+      </div>
+    </main>
+    <noscript><p class="noscript">このツールを使うにはJavaScriptを有効にしてください。ファイルはブラウザ内で処理します。</p></noscript>
+  </div>
+  <div id="print-root"></div>
+</body>
+</html>
