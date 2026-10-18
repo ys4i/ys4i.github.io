@@ -61,13 +61,7 @@ export function buildLabels(sheet, header, mapping) {
   return { records, errors };
 }
 
-export function pageLayout(width, height) {
-  if (!Number.isFinite(width) || !Number.isFinite(height) || width < 20 || height < 12) throw new Error('ラベルは幅20mm以上・高さ12mm以上にしてください。');
-  const columns = Math.floor((277 + 6) / (width + 6));
-  const rows = Math.floor((190 + 4) / (height + 4));
-  if (columns < 1 || rows < 1) throw new Error('ラベルがA4横の印刷範囲（277×190mm）に収まりません。');
-  return { columns, rows, capacity: columns * rows };
-}
+export { pageLayout } from './packing.js';
 
 export function priceText(value, unit) {
   if (!value) return '';

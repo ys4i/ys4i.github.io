@@ -1,5 +1,6 @@
 import { openWorkbook } from './xlsx.js';
 import { FIELDS, SIZE_PRESETS, detectHeader, buildLabels, drawerAt, pageLayout, priceText } from './labels.js';
+import { cutLines } from './packing.js';
 
 const $ = id => document.getElementById(id);
 const fieldNames = { name: '名前', price: '価格', photo: '写真', note: '備考', drawer: '引き出し' };
@@ -144,11 +145,12 @@ function settings() {
   const width = Number($('width').value);
   const height = Number($('height').value);
   const font = Number($('font-size').value);
-  const layout = pageLayout(width, height);
+  const layout = pageLayout(width, height, $('orientation').value);
   if (!Number.isFinite(font) || font < 8 || font > 28) throw new Error('文字サイズは8〜28ptにしてください。');
   const count = Number($('blank-count').value);
   if (state.mode === 'blank' && (!Number.isInteger(count) || count < 1 || count > 500)) throw new Error('印刷枚数は1〜500の整数にしてください。');
-  return { width, height, font, layout, count, photo: $('show-photo').checked, price: $('show-price').checked, unit: $('unit').value };
+  const yen = $('show-yen').checked;
+  return { width, height, font, layout, count, yen, photo: $('show-photo').checked, price: $('show-price').checked, unit: yen ? '¥' : '' };
 }
 function makeLabel(record, options) {
   const label = node('article', 'label-card');
@@ -156,7 +158,7 @@ function makeLabel(record, options) {
   if (record.blank) {
     label.classList.add('template');
     const copy = node('div', 'label-copy');
-    copy.append(node('div', 'label-price', '¥'));
+    if (options.yen) copy.append(node('div', 'label-price', '¥'));
     label.append(copy);
     return label;
   }
@@ -176,10 +178,26 @@ function makeLabel(record, options) {
 function makePages(records, options) {
   const pages = [];
   for (let start = 0; start < records.length; start += options.layout.capacity) {
-    const sheet = node('section', 'sheet');
-    const grid = node('div', 'label-grid');
-    for (const record of records.slice(start, start + options.layout.capacity)) grid.append(makeLabel(record, options));
-    sheet.append(grid);
+    const sheet = node('section', `sheet ${options.layout.orientation}`);
+    const surface = node('div', 'label-surface');
+    const items = records.slice(start, start + options.layout.capacity);
+    const positions = options.layout.positions.slice(0, items.length);
+    items.forEach((record, index) => {
+      const p = positions[index];
+      const slot = node('div', `label-slot${p.rotated ? ' rotated' : ''}`);
+      Object.assign(slot.style, { left: `${p.x}mm`, top: `${p.y}mm`, width: `${p.width}mm`, height: `${p.height}mm` });
+      slot.append(makeLabel(record, options));
+      surface.append(slot);
+    });
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.classList.add('cut-lines');
+    svg.setAttribute('viewBox', `0 0 ${options.layout.usableWidth} ${options.layout.usableHeight}`);
+    svg.setAttribute('aria-hidden', 'true');
+    const path = document.createElementNS(svg.namespaceURI, 'path');
+    path.setAttribute('d', cutLines(positions).map(line => `M${line.x1} ${line.y1}L${line.x2} ${line.y2}`).join(''));
+    svg.append(path);
+    surface.append(svg);
+    sheet.append(surface);
     pages.push(sheet);
   }
   return pages;
@@ -285,14 +303,17 @@ async function render() {
     root.style.setProperty('--label-width', `${options.width}mm`);
     root.style.setProperty('--label-height', `${options.height}mm`);
     root.style.setProperty('--label-font', `${options.font}pt`);
-    root.style.setProperty('--columns', options.layout.columns);
+    for (const [key, value] of Object.entries({ 'page-width': options.layout.pageWidth, 'page-height': options.layout.pageHeight, 'usable-width': options.layout.usableWidth, 'usable-height': options.layout.usableHeight })) root.style.setProperty(`--${key}`, `${value}mm`);
   }
   const selected = state.mode === 'blank'
     ? Array.from({ length: options.count }, (_, index) => ({ drawer: `blank-${index + 1}`, blank: true }))
     : state.records.filter(record => state.selected.has(record.drawer));
   $('counts').textContent = state.mode === 'blank' ? `汎用テンプレート ${options.count}枚` : state.records.length ? `${state.records.length}件 / 写真 ${state.records.filter(record => record.photo).length}枚` : 'Excelを読み込むと表示されます';
   $('selected-count').textContent = `${selected.length} / ${state.records.length} 件を印刷`;
-  $('layout-info').textContent = `${options.layout.columns}列 × ${options.layout.rows}段 / ${options.layout.capacity}枚・ページ`;
+  const paperName = options.layout.orientation === 'portrait' ? 'A4縦' : 'A4横';
+  $('layout-info').textContent = `${paperName} / 最大${options.layout.capacity}枚・ページ`;
+  $('packing-info').textContent = `${paperName}・周囲10mm・間隔0mm。1ページ最大${options.layout.capacity}枚${options.layout.rotations ? `（${options.layout.rotations}枚を90度回転）` : ''}。${options.layout.capacity === options.layout.areaUpperBound ? '印刷範囲の面積から計算した上限も満たす配置です。' : '直線裁断できる配置の中で最大枚数です。'}`;
+  $('print-guide').replaceChildren(node('span', '', `${paperName} / 倍率100%・実際のサイズ`), node('br'), node('span', '', 'ヘッダー・フッターはOFFにしてください。'));
   renderTable(options);
   renderCabinet();
   const pages = makePages(selected, options);
@@ -341,7 +362,7 @@ function preparePrint(mode) {
   document.body.classList.remove('print-blocked');
   if (mode === 'calibration') {
     const label = $('print-root').querySelector('.label-card')?.cloneNode(true);
-    const sheet = node('section', 'sheet calibration');
+    const sheet = node('section', `sheet calibration ${settings().layout.orientation}`);
     sheet.append(node('h2', 'calibration-title', '引き出しPOP / 試し刷り'));
     if (label) sheet.append(label);
     sheet.append(node('p', 'calibration-note', '下の線は100mmです。倍率100%・実際のサイズで印刷し、定規で確認してください。'));
@@ -378,7 +399,11 @@ $('header-row').addEventListener('change', () => {
   rebuild();
 });
 for (const id of ['width', 'height']) $(id).addEventListener('input', () => { syncSizePreset(); render(); });
-for (const id of ['font-size', 'unit', 'show-photo', 'show-price', 'blank-count']) $(id).addEventListener('input', render);
+for (const id of ['font-size', 'show-yen', 'show-photo', 'show-price', 'blank-count', 'orientation']) $(id).addEventListener('input', render);
+$('fill-page').addEventListener('click', () => {
+  try { $('blank-count').value = pageLayout(Number($('width').value), Number($('height').value), $('orientation').value).capacity; } catch { render(); return; }
+  render();
+});
 $('size-preset').replaceChildren(...SIZE_PRESETS.map(preset => new Option(`${preset.name} ${preset.width} × ${preset.height} mm`, preset.id)), new Option('カスタム', 'custom'));
 $('size-preset').addEventListener('change', () => {
   const preset = SIZE_PRESETS.find(preset => preset.id === $('size-preset').value);

@@ -79,11 +79,13 @@ try {
   await test('Excelなしで枠と¥だけの汎用テンプレートを印刷する', async () => {
     await page.goto(`${base}/playground/drawer-labels/`);
     assert.equal(await page.locator('#print').isDisabled(), true);
-    // Excel-specific price settings must not erase the ¥ on a blank template.
+    // Excel-specific price visibility must not affect the template's ¥ setting.
     await page.uncheck('#show-price');
-    await page.selectOption('#unit', '');
+    await page.uncheck('#show-yen');
     await page.check('input[name=source][value=blank]'); await waitReady();
     assert.equal(await page.locator('#print-root .label-card').count(), 12);
+    assert.deepEqual(await page.locator('#print-root .label-card').allTextContents(), Array(12).fill(''));
+    await page.check('#show-yen'); await waitReady();
     assert.deepEqual(await page.locator('#print-root .label-card').allTextContents(), Array(12).fill('¥'));
     assert.equal(await page.locator('#print-root img').count(), 0);
     assert.equal(await page.locator('#print-root .sheet').count(), 1);
@@ -92,7 +94,7 @@ try {
     await page.waitForFunction(() => document.getElementById('messages').textContent.includes('1〜500'));
     assert.equal(await page.locator('#print').isDisabled(), true);
     assert.equal(await page.locator('#print-root .label-card').count(), 0);
-    await page.fill('#blank-count', '13'); await waitReady();
+    await page.fill('#blank-count', '16'); await waitReady();
     assert.equal(await page.locator('#print-root .sheet').count(), 2);
     await page.fill('#width', '70');
     await page.fill('#height', '30'); await waitReady();
@@ -124,8 +126,7 @@ try {
     const size = await page.locator('#print-root .label-card').first().evaluate(el => {
       const box = el.getBoundingClientRect(); return [box.width * 25.4 / 96, box.height * 25.4 / 96];
     });
-    assert.ok(Math.abs(size[0] - 120) < .1);
-    assert.ok(Math.abs(size[1] - 55) < .1);
+    assert.ok((Math.abs(size[0] - 120) < .1 && Math.abs(size[1] - 55) < .1) || (Math.abs(size[0] - 55) < .1 && Math.abs(size[1] - 120) < .1));
     await page.pdf({ path: `${output}/front.pdf`, preferCSSPageSize: true });
     await page.emulateMedia({ media: 'screen' });
     await page.screenshot({ path: `${output}/front.png`, fullPage: true });
@@ -144,6 +145,45 @@ try {
     assert.equal(await page.locator('#size-preset').inputValue(), 'card');
     assert.equal(await page.locator('#height').inputValue(), '26');
     assert.equal(await page.locator('#print-root .sheet').count(), 1);
+  });
+  await test('120×55mmを接して7枚取りし、¥の有無・用紙の縦横を切り替える', async () => {
+    await page.goto(`${base}/playground/drawer-labels/`);
+    await page.click('#sample'); await waitReady();
+    await page.uncheck('#show-yen'); await waitReady();
+    assert.equal(await page.locator('#print-root .label-price').first().innerText(), '10');
+    await page.selectOption('#size-preset', 'front');
+    await page.check('input[name=source][value=blank]');
+    await page.fill('#blank-count', '8'); await waitReady();
+    assert.equal(await page.locator('#print-root .sheet').count(), 2);
+    await page.click('#fill-page'); await waitReady();
+    assert.equal(await page.locator('#blank-count').inputValue(), '7');
+    assert.equal(await page.locator('#print-root .sheet').count(), 1);
+    assert.equal(await page.locator('#print-root .sheet.portrait').count(), 1);
+    assert.equal(await page.locator('#print-root .label-slot.rotated').count(), 2);
+    assert.deepEqual(await page.locator('#print-root .label-card').allTextContents(), Array(7).fill(''));
+    assert.match(await page.locator('#packing-info').innerText(), /面積から計算した上限/);
+    const geometry = await page.locator('#paper-preview .label-slot').evaluateAll(slots => slots.map(el => ({ x: parseFloat(el.style.left), y: parseFloat(el.style.top), w: parseFloat(el.style.width), h: parseFloat(el.style.height) })));
+    for (const [index, a] of geometry.entries()) {
+      assert.ok(a.x >= 0 && a.y >= 0 && a.x + a.w <= 190 && a.y + a.h <= 277);
+      for (const b of geometry.slice(index + 1)) assert.ok(a.x + a.w <= b.x || b.x + b.w <= a.x || a.y + a.h <= b.y || b.y + b.h <= a.y);
+    }
+    assert.equal(await page.locator('#paper-preview .label-card').first().evaluate(el => getComputedStyle(el).borderTopWidth), '0px');
+    assert.equal(await page.locator('#print-root .cut-lines path').count(), 1);
+    await page.emulateMedia({ media: 'print' });
+    await page.pdf({ path: `${output}/front-blank.pdf`, preferCSSPageSize: true });
+    await page.emulateMedia({ media: 'screen' });
+    await page.check('#show-yen'); await waitReady();
+    assert.deepEqual(await page.locator('#print-root .label-card').allTextContents(), Array(7).fill('¥'));
+    for (const orientation of ['portrait', 'landscape']) {
+      await page.selectOption('#orientation', orientation); await waitReady();
+      assert.equal(await page.locator(`#print-root .sheet.${orientation}`).count(), 1);
+      assert.equal(await page.locator('#print-root .label-card').count(), 7);
+      await page.emulateMedia({ media: 'print' });
+      await page.pdf({ path: `${output}/front-${orientation}.pdf`, preferCSSPageSize: true });
+      await page.emulateMedia({ media: 'screen' });
+    }
+    await page.selectOption('#orientation', 'auto'); await waitReady();
+    await page.screenshot({ path: `${output}/seven-labels.png`, fullPage: true });
   });
   await test('サンプル：画像付きExcelの取り込みと選択印刷', async () => {
     await page.goto(`${base}/playground/drawer-labels/`);
@@ -187,16 +227,15 @@ try {
     assert.equal(await page.locator('#print-root .label-card').count(), 0);
     await page.selectOption('#sheet', '0'); await waitReady();
   });
-  await test('70枚を6ページに配置して印刷する', async () => {
+  await test('70枚を最大枚数で配置して印刷する', async () => {
     await upload({ count: 70 }); await waitReady();
-    assert.equal(await page.locator('#print-root .sheet').count(), 6);
+    assert.equal(await page.locator('#print-root .sheet').count(), 5);
     assert.equal(await page.locator('#print-root .label-card').count(), 70);
     assert.equal(await page.locator('#print-root .label-card').last().getAttribute('data-drawer'), 'R14C05');
     assert.equal(await page.locator('#print-root').evaluate(el => /R\d{2}C\d{2}/.test(el.textContent)), false);
     await page.emulateMedia({ media: 'print' });
     const dimensions = await page.locator('#print-root .label-card').first().evaluate(el => { const box = el.getBoundingClientRect(); return [box.width * 25.4 / 96, box.height * 25.4 / 96]; });
-    assert.ok(Math.abs(dimensions[0] - 116) < 0.1);
-    assert.ok(Math.abs(dimensions[1] - 26) < 0.1);
+    assert.ok((Math.abs(dimensions[0] - 116) < .1 && Math.abs(dimensions[1] - 26) < .1) || (Math.abs(dimensions[0] - 26) < .1 && Math.abs(dimensions[1] - 116) < .1));
     await page.pdf({ path: `${output}/70-labels.pdf`, preferCSSPageSize: true });
     await page.emulateMedia({ media: 'screen' });
     // Capture the actual print button preparation without opening a system dialog.
@@ -229,6 +268,7 @@ try {
     assert.equal(await page.locator('#print-root .label-card').count(), 0);
     await upload({ count: 1 }); await waitReady();
     await page.fill('#width', '278');
+    await page.fill('#height', '278');
     await page.waitForFunction(() => document.getElementById('messages').textContent.includes('収まりません'));
     assert.equal(await page.locator('#print').isDisabled(), true);
     await page.click('#reset-size'); await waitReady();

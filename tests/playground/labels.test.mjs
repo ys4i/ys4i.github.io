@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SIZE_PRESETS, detectHeader, buildLabels, drawerAt, pageLayout, priceText } from '../../static/playground/drawer-labels/labels.js';
 import { resolvePart, columnIndex } from '../../static/playground/drawer-labels/xlsx.js';
+import { cutLines } from '../../static/playground/drawer-labels/packing.js';
 
 const row = (number, values) => ({ number, cells: new Map(values.map((value, col) => [col, { value: String(value ?? ''), ref: `${String.fromCharCode(65 + col)}${number}` }])) });
 const mapping = { name: 0, price: 1, photo: 2, note: 3, drawer: -1 };
@@ -15,11 +16,37 @@ test('見出しの開始行と順序を判別する', () => {
 test('70個の位置とA4の配置境界', () => {
   assert.equal(drawerAt(0), 'R01C01');
   assert.equal(drawerAt(69), 'R14C05');
-  assert.deepEqual(pageLayout(116, 26), { columns: 2, rows: 6, capacity: 12 });
+  assert.equal(pageLayout(116, 26).capacity, 15);
   const front = SIZE_PRESETS.find(preset => preset.id === 'front');
-  assert.deepEqual(pageLayout(front.width, front.height), { columns: 2, rows: 3, capacity: 6 });
-  assert.deepEqual(pageLayout(277, 190), { columns: 1, rows: 1, capacity: 1 });
-  for (const dims of [[0, 26], [116, NaN], [278, 26], [116, 191]]) assert.throws(() => pageLayout(...dims));
+  assert.equal(pageLayout(front.width, front.height).capacity, 7);
+  assert.equal(pageLayout(277, 190).capacity, 1);
+  for (const dims of [[0, 26], [116, NaN], [278, 278], [116, 278]]) assert.throws(() => pageLayout(...dims));
+});
+test('120×55mmは寸法を保ち7枚を収納し、面積上限を満たす', () => {
+  for (const direction of ['auto', 'portrait', 'landscape']) {
+    const layout = pageLayout(120, 55, direction);
+    assert.equal(layout.capacity, 7);
+    assert.equal(layout.capacity, layout.areaUpperBound);
+    assert.ok(layout.positions.some(p => p.rotated));
+  }
+  assert.equal(pageLayout(120, 55).orientation, 'portrait');
+});
+test('配置は印刷範囲内に収まり、重複せず寸法を保持する', () => {
+  for (const [w, h] of [[120, 55], [116, 26], [70, 30], [277, 190], [20.1, 12.1], [66.7, 22.3]]) {
+    const layout = pageLayout(w, h);
+    assert.equal(layout.positions.length, layout.capacity);
+    for (const [index, a] of layout.positions.entries()) {
+      assert.equal(a.width, a.rotated ? h : w);
+      assert.equal(a.height, a.rotated ? w : h);
+      assert.ok(a.x >= 0 && a.y >= 0 && a.x + a.width <= layout.usableWidth + 1e-6 && a.y + a.height <= layout.usableHeight + 1e-6);
+      for (const b of layout.positions.slice(index + 1)) assert.ok(a.x + a.width <= b.x + 1e-6 || b.x + b.width <= a.x + 1e-6 || a.y + a.height <= b.y + 1e-6 || b.y + b.height <= a.y + 1e-6);
+    }
+  }
+});
+test('隙間なしの隣接ラベルは共通境界を1本だけ描く', () => {
+  const lines = cutLines([{ x: 0, y: 0, width: 120, height: 55 }, { x: 120, y: 0, width: 120, height: 55 }]);
+  assert.equal(lines.length, 5);
+  assert.deepEqual(lines.filter(line => line.x1 === 120 && line.x2 === 120), [{ x1: 120, y1: 0, x2: 120, y2: 55 }]);
 });
 test('空白行を飛ばし、0円と改行を保持する', () => {
   const result = buildLabels(sheet(row(4, ['2.2Ω', 0, '', '1/4W\n±5%']), row(5, ['', '', '', '']), row(6, ['100Ω', 10])), 3, mapping);
