@@ -109,6 +109,43 @@ try {
     await page.waitForFunction(() => document.getElementById('print').disabled);
     assert.equal(await page.locator('#print-root .label-card').count(), 0);
   });
+  await test('前面・側面サイズの切り替えと手動調整を両モードに適用する', async () => {
+    await page.goto(`${base}/playground/drawer-labels/`);
+    await page.click('#sample'); await waitReady();
+    assert.equal(await page.locator('#size-preset').inputValue(), 'card');
+    for (const [preset, width, height, capacity, pages] of [['front', 124, 63, 4, 2], ['side', 238, 63, 2, 3]]) {
+      await page.selectOption('#size-preset', preset); await waitReady();
+      assert.equal(await page.locator('#width').inputValue(), String(width));
+      assert.equal(await page.locator('#height').inputValue(), String(height));
+      assert.match(await page.locator('#size-note').innerText(), /実測した貼付範囲/);
+      assert.equal(await page.locator('#print-root .sheet').count(), pages);
+      assert.equal(await page.locator('#print-root .sheet').first().locator('.label-card').count(), capacity);
+      await page.emulateMedia({ media: 'print' });
+      const size = await page.locator('#print-root .label-card').first().evaluate(el => {
+        const box = el.getBoundingClientRect(); return [box.width * 25.4 / 96, box.height * 25.4 / 96];
+      });
+      assert.ok(Math.abs(size[0] - width) < .1);
+      assert.ok(Math.abs(size[1] - height) < .1);
+      await page.pdf({ path: `${output}/${preset}.pdf`, preferCSSPageSize: true });
+      await page.emulateMedia({ media: 'screen' });
+    }
+    await page.screenshot({ path: `${output}/side.png`, fullPage: true });
+    await page.check('input[name=source][value=blank]');
+    await page.fill('#blank-count', '5'); await waitReady();
+    assert.equal(await page.locator('#print-root .sheet').count(), 3);
+    assert.deepEqual(await page.locator('#print-root .label-card').allTextContents(), Array(5).fill('¥'));
+    await page.fill('#width', '230'); await waitReady();
+    assert.equal(await page.locator('#size-preset').inputValue(), 'custom');
+    await page.selectOption('#size-preset', 'front'); await waitReady();
+    assert.equal(await page.locator('#print-root .sheet').count(), 2);
+    await page.selectOption('#size-preset', 'custom'); await waitReady();
+    assert.equal(await page.locator('#size-preset').inputValue(), 'custom');
+    assert.equal(await page.locator('#width').inputValue(), '124');
+    await page.click('#reset-size'); await waitReady();
+    assert.equal(await page.locator('#size-preset').inputValue(), 'card');
+    assert.equal(await page.locator('#height').inputValue(), '26');
+    assert.equal(await page.locator('#print-root .sheet').count(), 1);
+  });
   await test('サンプル：画像付きExcelの取り込みと選択印刷', async () => {
     await page.goto(`${base}/playground/drawer-labels/`);
     assert.equal(await page.locator('meta[name=robots]').getAttribute('content'), 'noindex');

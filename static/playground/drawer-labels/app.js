@@ -1,5 +1,5 @@
 import { openWorkbook } from './xlsx.js';
-import { FIELDS, detectHeader, buildLabels, drawerAt, pageLayout, priceText } from './labels.js';
+import { FIELDS, SIZE_PRESETS, detectHeader, buildLabels, drawerAt, pageLayout, priceText } from './labels.js';
 
 const $ = id => document.getElementById(id);
 const fieldNames = { name: '名前', price: '価格', photo: '写真', note: '備考', drawer: '引き出し' };
@@ -131,6 +131,15 @@ function rebuild() {
   render();
 }
 
+function updateSizeNote() {
+  const preset = SIZE_PRESETS.find(preset => preset.id === $('size-preset').value);
+  $('size-note').textContent = preset?.note ?? '貼り付ける場所に合わせ、幅と高さを指定してください。';
+}
+function syncSizePreset() {
+  const preset = SIZE_PRESETS.find(preset => preset.width === Number($('width').value) && preset.height === Number($('height').value));
+  $('size-preset').value = preset?.id ?? 'custom';
+  updateSizeNote();
+}
 function settings() {
   const width = Number($('width').value);
   const height = Number($('height').value);
@@ -368,12 +377,27 @@ $('header-row').addEventListener('change', () => {
   if (row) createMapping(detectHeader([row]).mapping);
   rebuild();
 });
-for (const id of ['width', 'height', 'font-size', 'unit', 'show-photo', 'show-price', 'blank-count']) $(id).addEventListener('input', render);
+for (const id of ['width', 'height']) $(id).addEventListener('input', () => { syncSizePreset(); render(); });
+for (const id of ['font-size', 'unit', 'show-photo', 'show-price', 'blank-count']) $(id).addEventListener('input', render);
+$('size-preset').replaceChildren(...SIZE_PRESETS.map(preset => new Option(`${preset.name} ${preset.width} × ${preset.height} mm`, preset.id)), new Option('カスタム', 'custom'));
+$('size-preset').addEventListener('change', () => {
+  const preset = SIZE_PRESETS.find(preset => preset.id === $('size-preset').value);
+  if (preset) { $('width').value = preset.width; $('height').value = preset.height; }
+  updateSizeNote();
+  render();
+});
 document.querySelectorAll('input[name=source]').forEach(input => input.addEventListener('change', () => {
   state.mode = input.value;
   render();
 }));
-$('reset-size').addEventListener('click', () => { $('width').value = 116; $('height').value = 26; $('font-size').value = 16; render(); });
+$('reset-size').addEventListener('click', () => {
+  const standard = SIZE_PRESETS.find(preset => preset.id === 'card');
+  $('width').value = standard.width;
+  $('height').value = standard.height;
+  $('font-size').value = 16;
+  syncSizePreset();
+  render();
+});
 document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => { state.view = button.dataset.view; updateView(); scalePreview(); }));
 $('select-all').addEventListener('click', () => { state.selected = new Set(state.records.map(record => record.drawer)); render(); });
 $('select-none').addEventListener('click', () => { state.selected.clear(); render(); });
@@ -383,4 +407,5 @@ window.addEventListener('beforeprint', () => document.body.classList.toggle('pri
 window.addEventListener('afterprint', () => { if (lastPrintMode === 'calibration') { lastPrintMode = 'all'; render(); } });
 new ResizeObserver(scalePreview).observe(document.querySelector('.preview-area'));
 window.addEventListener('beforeunload', () => state.book?.dispose());
+syncSizePreset();
 render();

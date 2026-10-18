@@ -21,6 +21,8 @@ HOZAN B-415の各引き出しに付ける見出しカードを、画像付きの
 
 ラベルの初期寸法は横116×縦26mm。印刷時の文字の内側余白は2mm。紙を裁断してカード押えへ差し込む使い方を起点とする。寸法は画面で変更できる。貼付または差し込みの収まりは実物で確認する。
 
+サイズ選択には、引き出し前面124×63mmと側面238×63mmを追加。B-118のメーカー外形124（W）×63（H）×238（D）mmを使った参考値であり、貼付可能な平面の実測寸法ではない。選択時にその旨を案内し、幅・高さの手動調整に対応する。Excel版・汎用テンプレート共通で使用し、前面は4枚/ページ、側面は2枚/ページになる。
+
 ## Excel入力
 
 添付された表の例に合わせ、次の列を取り込む。表の開始行・開始列は固定せず、シート選択・見出し行の指定・列の対応変更に対応する。
@@ -101,7 +103,7 @@ GitHub PagesはHTML・CSS・JavaScriptを配信できるため、ブラウザ内
 
 - Hugo Extended 0.128.0による静的ビルド。
 - ロジックテスト9件：見出し判別、位置割り当て、件数・重複・必須値、画像対応、数式エラー、価格、OOXMLの参照解決、用紙配置。
-- Chromiumによるブラウザテスト6件：汎用テンプレート、POPの番号非表示、サンプル画像6枚、セル内画像のメタデータ参照、シート変更、選択印刷、表示設定、70件、エラー時停止、HTML風文字列、モバイル表示。
+- Chromiumによるブラウザテスト7件：前面・側面プリセットと手動調整、汎用テンプレート、POPの番号非表示、サンプル画像6枚、セル内画像のメタデータ参照、シート変更、選択印刷、表示設定、70件、エラー時停止、HTML風文字列、モバイル表示。
 - 印刷PDFを解析し、70枚が6ページ（12/12/12/12/12/10枚）、校正出力が1ページであることを確認。
 - ブラウザ上で116×26mmのラベル寸法を確認。
 - ブラウザ検証中に同一オリジンのGET以外のHTTP通信がないことを確認。
@@ -119,6 +121,7 @@ GitHub PagesはHTML・CSS・JavaScriptを配信できるため、ブラウザ内
 
 - [モノタロウ：対象商品](https://www.monotaro.com/p/6855/0395/)
 - [HOZAN公式：B-415と交換部品・カード寸法](https://www.hozan.co.jp/corp/g/g1415/)
+- [HOZAN公式：B-118の外形寸法](https://www.hozan.co.jp/corp/g/g1118/)
 - [GitHub Pagesの仕組み](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
 - [GitHub Pagesの制限](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)
 - [Microsoft：Excelのセル内画像](https://learn.microsoft.com/en-us/openspecs/office_standards/ms-xlsx/aac1e2a6-7072-4e66-b1de-f20b8bf63318)

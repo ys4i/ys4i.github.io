@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { detectHeader, buildLabels, drawerAt, pageLayout, priceText } from '../../static/playground/drawer-labels/labels.js';
+import { SIZE_PRESETS, detectHeader, buildLabels, drawerAt, pageLayout, priceText } from '../../static/playground/drawer-labels/labels.js';
 import { resolvePart, columnIndex } from '../../static/playground/drawer-labels/xlsx.js';
 
 const row = (number, values) => ({ number, cells: new Map(values.map((value, col) => [col, { value: String(value ?? ''), ref: `${String.fromCharCode(65 + col)}${number}` }])) });
@@ -16,6 +16,10 @@ test('70個の位置とA4の配置境界', () => {
   assert.equal(drawerAt(0), 'R01C01');
   assert.equal(drawerAt(69), 'R14C05');
   assert.deepEqual(pageLayout(116, 26), { columns: 2, rows: 6, capacity: 12 });
+  const front = SIZE_PRESETS.find(preset => preset.id === 'front');
+  assert.deepEqual(pageLayout(front.width, front.height), { columns: 2, rows: 2, capacity: 4 });
+  const side = SIZE_PRESETS.find(preset => preset.id === 'side');
+  assert.deepEqual(pageLayout(side.width, side.height), { columns: 1, rows: 2, capacity: 2 });
   assert.deepEqual(pageLayout(277, 190), { columns: 1, rows: 1, capacity: 1 });
   for (const dims of [[0, 26], [116, NaN], [278, 26], [116, 191]]) assert.throws(() => pageLayout(...dims));
 });
