@@ -39,3 +39,18 @@ NODE_PATH=/tmp/playground-test-deps/node_modules node --test tests/playground/br
 ブラウザテストは一時HTTPサーバーを起動して終了時に停止します。画面PNGと印刷検証用PDFは`/tmp/playground-qa/`へ出力します。保存先は`PLAYGROUND_TEST_OUTPUT`で変更できます。取り込みの境界条件を検証するため、テスト内で最小限のOOXMLパッケージを生成します。セル内画像の検証は、vm・futureMetadata・rich value・画像の参照を経由する構成です。
 
 実際のプリンターでは「1枚＋100mmの線を試し刷り」を使い、倍率100%での寸法と実物への収まりを確認してください。
+
+## 公開用のアセットとキャッシュの確認
+
+公開時はHugoの後に、Python標準ライブラリだけを使うパッケージ処理を実行します。GitHub Actionsにも同じ処理を追加しています。
+
+```sh
+hugo --minify --destination /tmp/playground-release-build
+python3 scripts/package-playground.py --public-dir /tmp/playground-release-build
+python3 -B -m unittest discover -s tests/playground -p 'test_*.py'
+NODE_PATH=/tmp/playground-test-deps/node_modules PLAYGROUND_STATIC_ROOT=/tmp/playground-release-build node --test tests/playground/labels.test.mjs tests/playground/browser.test.mjs
+```
+
+HTML・JS・CSS・サンプルの内容から版を計算し、`assets/<内容ハッシュ>/`に依存モジュールとCSS・サンプルをまとめます。HTMLもその版のURLを参照します。内部モジュールは相対インポートなので同じ版のディレクトリから読み込みます。新しいHTMLに古いJSやCSSが混ざる問題を防ぐため、公開用HTMLの参照先だけでなくモジュール全体を版ごとに分離しています。
+
+公開用ブラウザテストでは古いURLから壊れたJSが返る状態を作り、そのURLを使わずにサイズ候補・印刷が動くことを確認します。パッケージのテストでは、子モジュールの変更で版が変わることと、全インポート先の存在を確認します。

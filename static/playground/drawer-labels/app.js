@@ -386,7 +386,7 @@ $('dropzone').addEventListener('drop', event => {
 $('sample').addEventListener('click', async () => {
   busy(true);
   try {
-    const response = await fetch('./sample.xlsx');
+    const response = await fetch(new URL('./sample.xlsx', import.meta.url));
     if (!response.ok) throw new Error('サンプルを取得できません。');
     await loadFile(new File([await response.blob()], 'sample.xlsx'));
   } catch (error) { showMessages([error.message]); } finally { busy(false); render(); }

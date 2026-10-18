@@ -9,7 +9,7 @@ import assert from 'node:assert/strict';
 // Install Playwright outside the site checkout and expose it through NODE_PATH.
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
-const root = fileURLToPath(new URL('../../static/', import.meta.url));
+const root = process.env.PLAYGROUND_STATIC_ROOT ? resolve(process.env.PLAYGROUND_STATIC_ROOT) + sep : fileURLToPath(new URL('../../static/', import.meta.url));
 const output = process.env.PLAYGROUND_TEST_OUTPUT || '/tmp/playground-qa';
 const server = createServer(async (req, res) => {
   try {
@@ -36,7 +36,8 @@ const waitReady = () => page.waitForFunction(() => !document.getElementById('pri
 // Fixture ZIPs are authored in the browser to exercise the real import path.
 async function fixture(options = {}) {
   return page.evaluate(async options => {
-    const { zipSync, strToU8 } = await import('./vendor/fflate.js');
+    const appURL = document.querySelector('script[type="module"]').src;
+    const { zipSync, strToU8 } = await import(new URL('./vendor/fflate.js', appURL).href);
     const main = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main';
     const r = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
     const rels = 'http://schemas.openxmlformats.org/package/2006/relationships';
@@ -76,6 +77,26 @@ async function upload(options) {
 }
 
 try {
+  await test('公開用HTMLは古いURLのJSを使わず、同じ版のモジュールを読む', { skip: !process.env.PLAYGROUND_STATIC_ROOT }, async () => {
+    const pattern = `${base}/playground/drawer-labels/*.js`;
+    let staleRequests = 0;
+    await page.route(pattern, route => {
+      staleRequests++;
+      return route.fulfill({ contentType: 'text/javascript', body: 'document.getElementById("unit").value;' });
+    });
+    const start = requests.length;
+    try {
+      await page.goto(`${base}/playground/drawer-labels/`);
+      const app = await page.locator('script[type=module]').getAttribute('src');
+      assert.match(app, /^\.\/assets\/[a-f\d]{16}\/app\.js$/);
+      await page.check('input[name=source][value=blank]'); await waitReady();
+      assert.equal(await page.locator('#size-preset option').count(), 3);
+      assert.equal(await page.locator('#messages').innerText(), '');
+      const version = /assets\/([a-f\d]{16})\//.exec(app)[1];
+      for (const req of requests.slice(start).filter(req => /\.js$/.test(req.url))) assert.ok(req.url.includes(`/assets/${version}/`), req.url);
+      assert.equal(staleRequests, 0);
+    } finally { await page.unroute(pattern); }
+  });
   await test('Excelなしで枠と¥だけの汎用テンプレートを印刷する', async () => {
     await page.goto(`${base}/playground/drawer-labels/`);
     assert.equal(await page.locator('#print').isDisabled(), true);
